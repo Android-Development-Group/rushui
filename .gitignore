@@ -1,0 +1,8 @@
+*.iml
+.gradle
+.idea
+/build
+/janalytics-android-1.2.1-release
+/jpush-android-3.1.2-release
+janalytics-android-1.2.1-release.zip
+jpush-android-3.1.2-release.zip

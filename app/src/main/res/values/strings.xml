@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">入睡</string>
+    <string name="str_sleep">开始睡眠</string>
+    <string name="str_setting">设置</string>
+    <string name="str_whiteNoise">白噪声</string>
+    <string name="str_about">关于</string>
+    <string name="str_alarmClock">闹钟</string>
+    <string name="str_startSleep">开始睡眠</string>
+    <string name="str_version">版本信息</string>
+    <string name="str_slogen">入睡伴你入眠</string>
+    <string name="str_stopSleep">上滑结束睡眠</string>
+    <string name="str_sleepResult">睡眠评估</string>
+    <string name="str_ok">完成</string>
+    <string name="str_wakeup">该起床了</string>
+</resources>

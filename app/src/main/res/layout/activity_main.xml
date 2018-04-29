@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bule_1"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <com.pupu.rushui.widget.TimeDiskView
+        android:id="@+id/tdv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"></com.pupu.rushui.widget.TimeDiskView>
+
+    <include
+        layout="@layout/layout_topbar"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/layout_bottomBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="32dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_mine"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@mipmap/img_mine" />
+
+        <Button
+            android:id="@+id/btn_startSleep"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_btn_round"
+            android:text="@string/str_startSleep"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/iv_setting"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@mipmap/img_setting" />
+    </LinearLayout>
+
+    <com.pupu.rushui.widget.SlideAlphaView
+        android:id="@+id/layout_sleeping"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/iv_playController"
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/img_pause" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:id="@+id/layout_timeController"
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/shape_btn_round_88">
+
+                    <TextView
+                        android:id="@+id/tv_timeController"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="5"
+                        android:textColor="@color/white"
+                        android:textSize="24sp" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/img_slideup" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:text="@string/str_stopSleep"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+    </com.pupu.rushui.widget.SlideAlphaView>
+</RelativeLayout>

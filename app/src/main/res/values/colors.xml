@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="font_gary_01">#ffaaaaaa</color>
+    <color name="font_gary_02">#ff888888</color>
+    <color name="bule_night">#ff1b3772</color>
+    <color name="bule_1">#ff1a1f4a</color>
+    <color name="white">#ffffffff</color>
+    <color name="bule_2">#ff363f96</color>
+    <color name="bule_3">#ff4651bb</color>
+</resources>
