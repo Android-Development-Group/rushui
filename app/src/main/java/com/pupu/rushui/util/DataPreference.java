@@ -20,12 +20,16 @@ import java.util.List;
 public class DataPreference {
     static String TAG = "DataPreference";
 
+    private DataPreference(){
+        throw new AssertionError("Not allow");
+    }
+
     /**
      * 保存手机相关的信息
      *
      * @param info
      */
-    public static void setPhoneInfo(PhoneInfo info) {
+    public static synchronized void setPhoneInfo(PhoneInfo info) {
         SharedPreferences preferences = MyApplication.getInstance()
                 .getSharedPreferences("phoneInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -40,7 +44,7 @@ public class DataPreference {
      *
      * @return
      */
-    public static PhoneInfo getPhoneInfo() {
+    public static synchronized PhoneInfo getPhoneInfo() {
         PhoneInfo info = new PhoneInfo();
         SharedPreferences preferences = MyApplication.getInstance()
                 .getSharedPreferences("phoneInfo", Context.MODE_PRIVATE);
@@ -58,7 +62,7 @@ public class DataPreference {
      *
      * @param user
      */
-    public static void setUserInfo(User user) {
+    public static synchronized void setUserInfo(User user) {
         SharedPreferences preferences = MyApplication.getInstance()
                 .getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -73,7 +77,7 @@ public class DataPreference {
      *
      * @return
      */
-    public static User getUserInfo() {
+    public static synchronized User getUserInfo() {
         User user = new User();
         SharedPreferences preferences = MyApplication.getInstance()
                 .getSharedPreferences("userInfo", Context.MODE_PRIVATE);
@@ -91,7 +95,7 @@ public class DataPreference {
      *
      * @param mAlarmTime
      */
-    public static void addAlarm(AlarmTime mAlarmTime) {
+    public static synchronized void addAlarm(AlarmTime mAlarmTime) {
         List<AlarmTime> list = getAlarmList();
         //判断id，如果id已存在则是更新
         if (list == null) {
@@ -112,7 +116,7 @@ public class DataPreference {
      *
      * @param list
      */
-    public static void setAlarmList(List<AlarmTime> list) {
+    public static synchronized void setAlarmList(List<AlarmTime> list) {
         //转json
         Gson gson = new Gson();
         String tmp = gson.toJson(list);
@@ -128,7 +132,7 @@ public class DataPreference {
      *
      * @return
      */
-    public static List<AlarmTime> getAlarmList() {
+    public static synchronized List<AlarmTime> getAlarmList() {
         List<AlarmTime> list = null;
         SharedPreferences preferences = MyApplication.getInstance()
                 .getSharedPreferences("alarmList", Context.MODE_PRIVATE);

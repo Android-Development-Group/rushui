@@ -14,11 +14,11 @@ public class AlarmListContract {
 
     interface View extends BaseView {
         /**
-         * 获取recyclerview对应的的list
-         *
-         * @return
+         * 刷新整个闹钟列表数据
+         * @param list
          */
-        List<AlarmTime> getAlarmTimeList();
+        void refreshAlarmList(List<AlarmTime> list);
+
     }
 
     interface Presenter extends BasePresenter {

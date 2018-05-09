@@ -97,7 +97,13 @@ public class AlarmListActivity extends BaseActivity implements AlarmListContract
     }
 
     @Override
-    public List<AlarmTime> getAlarmTimeList() {
-        return alarmList;
+    public void refreshAlarmList(List<AlarmTime> list) {
+        if (alarmList != null) {
+            alarmList.clear();
+            alarmList.addAll(list);
+            if (adapter != null) {
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 }
