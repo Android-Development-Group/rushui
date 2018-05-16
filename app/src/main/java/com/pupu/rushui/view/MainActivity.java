@@ -1,4 +1,4 @@
-package com.pupu.rushui.home;
+package com.pupu.rushui.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,9 +16,9 @@ import android.widget.TextView;
 
 import com.pupu.rushui.R;
 import com.pupu.rushui.base.BaseActivity;
-import com.pupu.rushui.result.SleepResultActivity;
+import com.pupu.rushui.contract.MainContract;
+import com.pupu.rushui.presenter.MainPresenter;
 import com.pupu.rushui.service.SleepService;
-import com.pupu.rushui.setting.SettingActivity;
 import com.pupu.rushui.widget.SlideAlphaView;
 import com.pupu.rushui.widget.TimeDiskView;
 

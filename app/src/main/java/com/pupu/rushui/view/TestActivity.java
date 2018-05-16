@@ -1,4 +1,4 @@
-package com.pupu.rushui.test;
+package com.pupu.rushui.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

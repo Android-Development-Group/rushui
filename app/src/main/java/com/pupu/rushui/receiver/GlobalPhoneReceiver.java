@@ -7,7 +7,7 @@ import android.media.MediaPlayer;
 
 import com.google.gson.Gson;
 import com.pupu.rushui.R;
-import com.pupu.rushui.alarmlist.RingActivity;
+import com.pupu.rushui.view.RingActivity;
 import com.pupu.rushui.common.Constant;
 import com.pupu.rushui.entity.AlarmTime;
 import com.pupu.rushui.util.CommonUtil;

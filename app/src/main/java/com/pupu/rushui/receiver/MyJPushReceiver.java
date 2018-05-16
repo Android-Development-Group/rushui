@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.gson.Gson;
-import com.pupu.rushui.alarmlist.RingActivity;
+import com.pupu.rushui.view.RingActivity;
 import com.pupu.rushui.entity.AlarmTime;
 import com.pupu.rushui.util.Logger;
 

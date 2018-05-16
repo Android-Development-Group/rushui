@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--背景进度条-->
+    <item android:id="@android:id/background">
+        <shape android:shape="line">
+            <stroke android:width="2dp" android:color="@color/white"/>
+            <corners android:radius="1dp"></corners>
+        </shape>
+    </item>
+</layer-list>

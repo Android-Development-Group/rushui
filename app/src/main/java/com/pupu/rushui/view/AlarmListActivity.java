@@ -1,4 +1,4 @@
-package com.pupu.rushui.alarmlist;
+package com.pupu.rushui.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +8,9 @@ import android.view.View;
 
 import com.pupu.rushui.R;
 import com.pupu.rushui.adapter.AlarmRvAdapter;
+import com.pupu.rushui.contract.AlarmListContract;
+import com.pupu.rushui.presenter.AlarmListPresenter;
 import com.pupu.rushui.base.BaseActivity;
-import com.pupu.rushui.base.BasePresenter;
 import com.pupu.rushui.entity.AlarmTime;
 import com.pupu.rushui.util.DataPreference;
 

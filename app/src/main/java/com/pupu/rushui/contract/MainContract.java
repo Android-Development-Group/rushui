@@ -1,4 +1,4 @@
-package com.pupu.rushui.home;
+package com.pupu.rushui.contract;
 
 import android.app.Activity;
 
@@ -10,7 +10,7 @@ import com.pupu.rushui.base.BaseView;
  */
 
 public class MainContract {
-    interface View extends BaseView {
+    public interface View extends BaseView {
         /**
          * 开启按钮的呼吸动画
          */
@@ -43,7 +43,7 @@ public class MainContract {
 
     }
 
-    interface Presenter extends BasePresenter {
+    public interface Presenter extends BasePresenter {
         /**
          * 开始睡眠
          */

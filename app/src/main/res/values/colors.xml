@@ -10,4 +10,6 @@
     <color name="white">#ffffffff</color>
     <color name="bule_2">#ff363f96</color>
     <color name="bule_3">#ff4651bb</color>
+
+    <color name="light_gray">#9a9a9a</color>
 </resources>

@@ -1,15 +1,10 @@
-package com.pupu.rushui.home;
+package com.pupu.rushui.presenter;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 
-import com.pupu.rushui.R;
-import com.pupu.rushui.app.MyApplication;
 import com.pupu.rushui.base.BaseView;
-import com.pupu.rushui.result.SleepResultActivity;
+import com.pupu.rushui.contract.MainContract;
 import com.pupu.rushui.service.SleepService;
 
 /**

@@ -66,6 +66,18 @@ public class MyApplication extends Application {
     }
 
     /**
+     * 注册闹钟
+     */
+    private void registerAlarm() {
+        AlarmTime alarmTime = DataPreference.getAlarm();
+        if (alarmTime != null) {
+            AlarmManagerUtil.setAlarm(mContext, 1, alarmTime,
+                    alarmTime.getHour24(), alarmTime.getMinute(), alarmTime.getId(),
+                    0, "", 2);
+        }
+    }
+
+    /**
      * 注册所有的闹钟
      */
     private void registerAllAlarm() {

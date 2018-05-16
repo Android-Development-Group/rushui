@@ -8,7 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import com.pupu.rushui.app.MyApplication;
 import com.pupu.rushui.entity.AlarmTime;
 import com.pupu.rushui.entity.PhoneInfo;
-import com.pupu.rushui.entity.User;
+import com.pupu.rushui.entity.UserInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
 public class DataPreference {
     static String TAG = "DataPreference";
 
-    private DataPreference(){
+    private DataPreference() {
         throw new AssertionError("Not allow");
     }
 
@@ -62,7 +62,7 @@ public class DataPreference {
      *
      * @param user
      */
-    public static synchronized void setUserInfo(User user) {
+    public static synchronized void setUserInfo(UserInfo user) {
         SharedPreferences preferences = MyApplication.getInstance()
                 .getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -77,17 +77,52 @@ public class DataPreference {
      *
      * @return
      */
-    public static synchronized User getUserInfo() {
-        User user = new User();
+    public static synchronized UserInfo getUserInfo() {
+        UserInfo user = new UserInfo();
         SharedPreferences preferences = MyApplication.getInstance()
                 .getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         String tmp = preferences.getString("jsonInfo", "");
         if (!tmp.equals("")) {
             Gson gson = new Gson();
-            user = gson.fromJson(tmp, User.class);
+            user = gson.fromJson(tmp, UserInfo.class);
             return user;
         }
         return user;
+    }
+
+    /**
+     * 获取闹钟（唯一的）
+     *
+     * @return
+     */
+    public static synchronized AlarmTime getAlarm() {
+        AlarmTime alarmTime = null;
+        SharedPreferences preferences = MyApplication.getInstance()
+                .getSharedPreferences("alarm", Context.MODE_PRIVATE);
+        String tmp = preferences.getString("jsonInfo", "");
+        if (!tmp.equals("")) {
+            Gson gson = new Gson();
+            alarmTime = gson.fromJson(tmp, AlarmTime.class);
+        }
+        return alarmTime;
+    }
+
+    /**
+     * 设置闹钟（唯一的）
+     *
+     * @param alarmTime
+     */
+    public static synchronized void setAlarm(AlarmTime alarmTime) {
+        if (alarmTime == null) {
+            return;
+        }
+        SharedPreferences preferences = MyApplication.getInstance()
+                .getSharedPreferences("alarm", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        Gson gson = new Gson();
+        String tmp = gson.toJson(alarmTime);
+        editor.putString("jsonInfo", tmp);
+        editor.commit();
     }
 
     /**

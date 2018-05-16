@@ -37,7 +37,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".splash.SplashActivity"
+            android:name=".view.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,32 +47,34 @@
         </activity>
 
         <activity
-            android:name=".home.MainActivity"
+            android:name=".view.MainActivity"
             android:screenOrientation="portrait"></activity>
 
         <activity
-            android:name=".setting.SettingActivity"
+            android:name=".view.SettingActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".result.SleepResultActivity"
+            android:name=".view.SleepResultActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".alarmlist.AlarmListActivity"
+            android:name=".view.AlarmListActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".alarmlist.AlarmDetailActivity"
+            android:name=".view.AlarmDetailActivity"
             android:screenOrientation="portrait"></activity>
 
         <activity
-            android:name=".alarmlist.RingActivity"
+            android:name=".view.RingActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:theme="@style/CommonDialog"></activity>
+            android:theme="@style/CommonDialog">
+
+        </activity>
         <activity
-            android:name=".test.TestActivity"
+            android:name=".view.TestActivity"
             android:screenOrientation="portrait"></activity>
 
         <service

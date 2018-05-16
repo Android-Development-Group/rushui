@@ -1,6 +1,7 @@
-package com.pupu.rushui.alarmlist;
+package com.pupu.rushui.presenter;
 
 import com.pupu.rushui.base.BaseView;
+import com.pupu.rushui.contract.AlarmListContract;
 import com.pupu.rushui.entity.AlarmTime;
 import com.pupu.rushui.util.DataPreference;
 

@@ -18,6 +18,12 @@ public class AlarmTime implements Serializable {
      */
     boolean[] weeks = new boolean[7];
 
+    /**
+     * 是否开启
+     */
+    boolean isOpen = false;
+
+
     public AlarmTime() {
     }
 
@@ -96,6 +102,34 @@ public class AlarmTime implements Serializable {
         this.day = day;
     }
 
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    public void setOpen(boolean open) {
+        isOpen = open;
+    }
+
+    /**
+     * 转换成带冒号格式的字符串
+     *
+     * @return
+     */
+    public String parseToTime() {
+        String tmp = "";
+        if (this.hour24 < 10) {
+            tmp = "0" + hour24 + ":";
+        } else {
+            tmp = hour24 + ":";
+        }
+        if (this.minute < 10) {
+            tmp = tmp + "0" + minute;
+        } else {
+            tmp = hour24 + ":" + minute;
+        }
+        return tmp;
+    }
+
     @Override
     public String toString() {
         return "AlarmTime{" +
@@ -109,6 +143,7 @@ public class AlarmTime implements Serializable {
                 ", month=" + month +
                 ", day=" + day +
                 ", weeks=" + Arrays.toString(weeks) +
+                ", isOpen=" + isOpen +
                 '}';
     }
 }

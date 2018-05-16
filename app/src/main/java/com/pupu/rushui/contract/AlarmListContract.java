@@ -1,4 +1,4 @@
-package com.pupu.rushui.alarmlist;
+package com.pupu.rushui.contract;
 
 import com.pupu.rushui.base.BasePresenter;
 import com.pupu.rushui.base.BaseView;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class AlarmListContract {
 
-    interface View extends BaseView {
+    public interface View extends BaseView {
         /**
          * 刷新整个闹钟列表数据
          * @param list
@@ -21,7 +21,7 @@ public class AlarmListContract {
 
     }
 
-    interface Presenter extends BasePresenter {
+    public  interface Presenter extends BasePresenter {
         /**
          * 刷新列表
          */

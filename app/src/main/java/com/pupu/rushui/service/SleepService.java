@@ -11,11 +11,10 @@ import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
-import android.view.View;
 
 import com.pupu.rushui.R;
 import com.pupu.rushui.app.MyApplication;
-import com.pupu.rushui.home.MainActivity;
+import com.pupu.rushui.view.MainActivity;
 
 /**
  * Created by pupu on 2018/4/7.
