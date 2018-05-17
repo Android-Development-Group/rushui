@@ -18,6 +18,10 @@ public class SlideAlphaView extends LinearLayout {
     float startX, startY;
     float curX, curY;
     float deta;
+    public final static int MODE_SLIDE_UP = 0x001;//上滑渐变模式
+    public final static int MODE_SLIDE_DOWN = 0x002;//下滑渐变模式
+    public final static int MODE_BOTH = 0x003;//上滑or下滑均可渐变
+    int mode = MODE_SLIDE_UP;
 
     public SlideAlphaView(Context context) {
         this(context, null);
@@ -35,19 +39,28 @@ public class SlideAlphaView extends LinearLayout {
                 startY = event.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                Logger.i(TAG, "deta==>" + deta);
                 curX = event.getX();
                 curY = event.getY();
-                if (curY < startY) {
-                    deta = Math.abs(curY - startY);
-                    setAlpha(1 - deta / 600);
+                if (mode == MODE_SLIDE_UP) {
+                    if (curY < startY) {
+                        deta = curY - startY;
+                        setAlpha(1 - Math.abs(deta) / 600);
+                    }
+                } else if (mode == MODE_SLIDE_DOWN) {
+                    if (curY > startY) {
+                        deta = curY - startY;
+                        setAlpha(1 - Math.abs(deta) / 600);
+                    }
+                } else {
+                    deta = curY - startY;
+                    setAlpha(1 - Math.abs(deta) / 600);
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 if (onSlideLisenter != null) {
                     onSlideLisenter.onSlideOver((int) deta);
                 }
-                if (deta < 600) {
+                if (Math.abs(deta) < 600) {
                     setAlpha(1);
                 } else {
                     setAlpha(0);
@@ -57,6 +70,14 @@ public class SlideAlphaView extends LinearLayout {
                 break;
         }
         return true;
+    }
+
+    public int getMode() {
+        return mode;
+    }
+
+    public void setMode(int mode) {
+        this.mode = mode;
     }
 
     OnSlideLisenter onSlideLisenter;
