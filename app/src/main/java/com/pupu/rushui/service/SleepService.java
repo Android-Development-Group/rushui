@@ -8,13 +8,21 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.pupu.rushui.R;
 import com.pupu.rushui.app.MyApplication;
+import com.pupu.rushui.common.RxBusConstant;
+import com.pupu.rushui.util.RxBusUtils;
 import com.pupu.rushui.view.MainActivity;
+
+import rx.Observable;
+import rx.Subscriber;
 
 /**
  * Created by pupu on 2018/4/7.
@@ -54,13 +62,20 @@ public class SleepService extends Service {
     /**
      * 播放多少分钟
      */
-    static int minuteRepeat = 5;
+    static int minuteRepeat = 3;
 
+    /**
+     * 暂停播放时的时间
+     */
+    static int pauseTime = minuteRepeat * 60 * 1000;
 
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
+
+        mediaPlayer = MediaPlayer.create(MyApplication.getInstance(), R.raw.rain2);
+        mediaPlayer.setLooping(true);
     }
 
     @Override
@@ -85,9 +100,6 @@ public class SleepService extends Service {
         // 参数一：唯一的通知标识；参数二：通知消息。
         startForeground(NOTICE_ID, notification);// 开始前台服务
 
-        mediaPlayer = MediaPlayer.create(MyApplication.getInstance(), R.raw.rain2);
-        mediaPlayer.setLooping(true);
-
         return START_STICKY;
     }
 
@@ -101,38 +113,7 @@ public class SleepService extends Service {
      * 开始睡眠业务
      */
     public static void startSleep() {
-        if (mediaPlayer != null) {
-            mediaPlayer.setVolume(0f, 0f);
-            ValueAnimator fadeVol = ValueAnimator.ofFloat(0f, 1f);
-            fadeVol.setDuration(2000);
-            fadeVol.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    mediaPlayer.setVolume((float) animation.getAnimatedValue(),
-                            (float) animation.getAnimatedValue());
-                }
-            });
-            fadeVol.start();
-            mediaPlayer.start();
-            playStatus = STATE_PLAYING;
-            if (countDownTimer != null) {
-                countDownTimer.cancel();
-            }
-            countDownTimer = new CountDownTimer(minuteRepeat * 60 * 1000, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-
-                }
-
-                @Override
-                public void onFinish() {
-                    if (mediaPlayer != null) {
-                        mediaPlayer.stop();
-                    }
-                }
-            };
-            countDownTimer.start();
-        }
+        startPlayWhiteNoise();
     }
 
     /**
@@ -151,6 +132,7 @@ public class SleepService extends Service {
                     if ((float) animation.getAnimatedValue() <= 0) {
                         mediaPlayer.stop();
                         mediaPlayer.release();
+                        mediaPlayer = null;
                         if (countDownTimer != null) {
                             countDownTimer.cancel();
                         }
@@ -166,10 +148,42 @@ public class SleepService extends Service {
      * 开始播放助眠音乐
      */
     public static void startPlayWhiteNoise() {
-        if (mediaPlayer != null) {
-            mediaPlayer.start();
-            playStatus = STATE_PLAYING;
+        if (mediaPlayer == null) {
+            mediaPlayer = MediaPlayer.create(MyApplication.getInstance(), R.raw.rain2);
+            mediaPlayer.setLooping(true);
         }
+        mediaPlayer.setVolume(0f, 0f);
+        ValueAnimator fadeVol = ValueAnimator.ofFloat(0f, 1f);
+        fadeVol.setDuration(2000);
+        fadeVol.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                mediaPlayer.setVolume((float) animation.getAnimatedValue(),
+                        (float) animation.getAnimatedValue());
+            }
+        });
+        fadeVol.start();
+        mediaPlayer.start();
+        playStatus = STATE_PLAYING;
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+        countDownTimer = new CountDownTimer(pauseTime, 500) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                pauseTime = (int) millisUntilFinished;
+                //跟新UI
+                RxBusUtils.post(RxBusConstant.EVENT_PLAYING_WHITENOISE, "" + millisUntilFinished);
+            }
+
+            @Override
+            public void onFinish() {
+                if (mediaPlayer != null) {
+                    mediaPlayer.stop();
+                }
+            }
+        };
+        countDownTimer.start();
     }
 
     /**
@@ -179,7 +193,33 @@ public class SleepService extends Service {
         if (mediaPlayer != null) {
             mediaPlayer.pause();
             playStatus = STATE_PAUSEING;
+            if (countDownTimer != null) {
+                countDownTimer.cancel();
+                countDownTimer = null;
+            }
         }
+    }
+
+    /**
+     * 获取播放进度
+     *
+     * @return
+     */
+    public static int getPlayPercent() {
+        int percent = 0;
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            percent = mediaPlayer.getCurrentPosition();
+        }
+        return percent;
+    }
+
+    /**
+     * 获取播放时长
+     *
+     * @return
+     */
+    public static int getPlayDuration() {
+        return minuteRepeat * 60 * 1000;
     }
 
     /**
@@ -191,16 +231,4 @@ public class SleepService extends Service {
         return playStatus;
     }
 
-    /**
-     * 播放闹钟
-     */
-    public static void playAlarm() {
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-            mediaPlayer.release();
-        }
-        mediaPlayer = MediaPlayer.create(MyApplication.getInstance(), R.raw.ring);
-        mediaPlayer.setLooping(true);
-        mediaPlayer.start();
-    }
 }

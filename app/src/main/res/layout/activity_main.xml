@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bule_1"
@@ -26,7 +27,8 @@
         android:layout_marginRight="16dp"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="visible">
 
         <ImageView
             android:id="@+id/iv_mine"
@@ -63,49 +65,40 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="56dp">
+
+            <com.pupu.rushui.widget.RoundProgressBar
+                android:id="@+id/rpb_play"
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:layout_gravity="center_horizontal"
+                app:max="100"
+                app:roundColor="@android:color/transparent"
+                app:roundProgressColor="@color/white"
+                app:roundWidth="4dp" />
+
+            <ImageView
+                android:id="@+id/iv_playController"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/img_pause" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_remind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="32dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:id="@+id/iv_playController"
-                    android:layout_width="88dp"
-                    android:layout_height="88dp"
-                    android:layout_centerInParent="true"
-                    android:src="@mipmap/img_pause" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <RelativeLayout
-                    android:id="@+id/layout_timeController"
-                    android:layout_width="88dp"
-                    android:layout_height="88dp"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/shape_btn_round_88">
-
-                    <TextView
-                        android:id="@+id/tv_timeController"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="5"
-                        android:textColor="@color/white"
-                        android:textSize="24sp" />
-                </RelativeLayout>
-            </RelativeLayout>
-        </LinearLayout>
+            android:text="@string/str_sleepRemind"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
         <ImageView
             android:layout_width="24dp"

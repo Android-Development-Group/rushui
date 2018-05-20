@@ -61,8 +61,8 @@ dependencies {
     /**
      * Rx
      */
-    compile 'io.reactivex:rxjava:1.0.14'
-    compile 'io.reactivex:rxandroid:1.0.1'
+    compile 'io.reactivex:rxjava:1.1.10'
+    compile 'io.reactivex:rxandroid:1.2.1'
     /**
      *  Retrofit 2.0
      */
@@ -75,4 +75,8 @@ dependencies {
      * Retrofi gson
      */
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    /**
+     * RxBus
+     */
+    compile 'com.hwangjr.rxbus:rxbus:1.0.5'
 }

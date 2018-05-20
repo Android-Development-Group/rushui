@@ -209,6 +209,24 @@ public class TimeDiskView extends ViewGroup {
     }
 
     /**
+     * 隐藏时间文字
+     */
+    public void hideTimeText() {
+        if (tv_time != null) {
+            tv_time.setVisibility(GONE);
+        }
+    }
+
+    /**
+     * 显示时间文字
+     */
+    public void showTimeText() {
+        if (tv_time != null) {
+            tv_time.setVisibility(VISIBLE);
+        }
+    }
+
+    /**
      * 开启时间显示
      */
     public void start() {

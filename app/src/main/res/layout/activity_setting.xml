@@ -161,6 +161,30 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_share"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_layout"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:text="@string/str_share"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@mipmap/img_arrow_right" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/layout_about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

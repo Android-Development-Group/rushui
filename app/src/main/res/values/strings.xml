@@ -11,7 +11,7 @@
     <string name="str_stopSleep">上滑结束睡眠</string>
     <string name="str_sleepResult">睡眠评估</string>
     <string name="str_ok">完成</string>
-    <string name="str_wakeup">上滑结束闹钟</string>
+    <string name="str_wakeup">闹钟响了</string>
     <string name="toast_phonenum_null">手机号为空</string>
     <string name="toast_phonenum_err">手机号错误</string>
     <string name="toast_password_err">密码错误</string>
@@ -21,4 +21,7 @@
     <string name="str_alarmRemind">大概在%1$d小时后唤醒</string>
     <string name="str_notSet">未设置</string>
     <string name="str_slideDown">下滑小睡一会</string>
+    <string name="str_share">分享</string>
+    <string name="str_sleepRemind">预计睡眠%1$d小时</string>
+    <string name="str_notSetAlarm">未设置闹钟</string>
 </resources>

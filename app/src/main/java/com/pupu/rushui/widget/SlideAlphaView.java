@@ -6,8 +6,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
 
-import com.pupu.rushui.util.Logger;
-
 /**
  * Created by pupu on 2018/4/7.
  */
@@ -17,7 +15,7 @@ public class SlideAlphaView extends LinearLayout {
     private static final String TAG = "SlideAlphaView";
     float startX, startY;
     float curX, curY;
-    float deta;
+    float deta = 0;
     public final static int MODE_SLIDE_UP = 0x001;//上滑渐变模式
     public final static int MODE_SLIDE_DOWN = 0x002;//下滑渐变模式
     public final static int MODE_BOTH = 0x003;//上滑or下滑均可渐变

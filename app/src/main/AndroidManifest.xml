@@ -39,7 +39,11 @@
         <activity
             android:name=".view.SplashActivity"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity
@@ -67,11 +71,7 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/CommonDialog">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".view.TestActivity"

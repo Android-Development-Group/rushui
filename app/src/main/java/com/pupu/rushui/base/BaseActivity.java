@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pupu.rushui.R;
+import com.pupu.rushui.util.RxBusUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -50,6 +51,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
         //极光统计
         JAnalyticsInterface.onPageStart(this, this.getClass().getCanonicalName());
+
     }
 
     protected abstract int setLayoutResourceID();
