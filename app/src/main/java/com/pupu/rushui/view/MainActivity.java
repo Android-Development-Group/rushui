@@ -36,26 +36,26 @@ import com.pupu.rushui.widget.TimeDiskView;
 
 import java.util.Calendar;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements MainContract.View {
 
     private static final String TAG = MainActivity.class.getName();
-    @Bind(R.id.btn_startSleep)
+    @BindView(R.id.btn_startSleep)
     Button btn_startSleep;
     Animation breathAnim;
-    @Bind(R.id.layout_bottomBtn)
+    @BindView(R.id.layout_bottomBtn)
     View layout_bottomBtn;
-    @Bind(R.id.layout_sleeping)
+    @BindView(R.id.layout_sleeping)
     SlideAlphaView layout_sleeping;
-    @Bind(R.id.tdv)
+    @BindView(R.id.tdv)
     TimeDiskView tdv;
-    @Bind(R.id.iv_playController)
+    @BindView(R.id.iv_playController)
     ImageView iv_playController;
-    @Bind(R.id.rpb_play)
+    @BindView(R.id.rpb_play)
     RoundProgressBar rpb_play;
-    @Bind(R.id.tv_remind)
+    @BindView(R.id.tv_remind)
     TextView tv_remind;
 
     @Override

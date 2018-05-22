@@ -17,7 +17,7 @@ import com.pupu.rushui.util.DataPreference;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -25,7 +25,7 @@ import butterknife.OnClick;
  */
 
 public class AlarmListActivity extends BaseActivity implements AlarmListContract.View {
-    @Bind(R.id.rv_alarmList)
+    @BindView(R.id.rv_alarmList)
     RecyclerView rv_alarmList;
     AlarmRvAdapter adapter;
     List<AlarmTime> alarmList;

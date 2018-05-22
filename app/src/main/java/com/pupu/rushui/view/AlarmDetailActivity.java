@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
-
 import com.pupu.rushui.R;
 import com.pupu.rushui.app.MyApplication;
 import com.pupu.rushui.base.BaseActivity;
@@ -19,10 +18,8 @@ import com.pupu.rushui.util.AlarmManagerUtil;
 import com.pupu.rushui.util.DataPreference;
 import com.pupu.rushui.util.Logger;
 import com.pupu.rushui.widget.TimeDiskView;
-
 import java.util.Calendar;
-
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -32,10 +29,10 @@ import butterknife.OnClick;
 public class AlarmDetailActivity extends BaseActivity {
 
     private static final String TAG = AlarmDetailActivity.class.getName();
-    @Bind(R.id.tdv)
+    @BindView(R.id.tdv)
     TimeDiskView tdv;
     AlarmTime alarmTime;
-    @Bind(R.id.tv_remind)
+    @BindView(R.id.tv_remind)
     TextView tv_remind;
     /**
      * 系统当前时间

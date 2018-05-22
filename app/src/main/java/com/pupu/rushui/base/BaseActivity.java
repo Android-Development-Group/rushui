@@ -1,6 +1,5 @@
 package com.pupu.rushui.base;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pupu.rushui.R;
-import com.pupu.rushui.util.RxBusUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jiguang.analytics.android.api.JAnalyticsInterface;
@@ -25,9 +23,9 @@ import cn.jiguang.analytics.android.api.JAnalyticsInterface;
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseView<T> {
 
     ProgressDialog progressDialog;
-    @Bind(R.id.iv_close)
+    @BindView(R.id.iv_close)
     public ImageView iv_close;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     public TextView tv_title;
 
     protected T presenter;

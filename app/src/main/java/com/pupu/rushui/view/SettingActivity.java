@@ -9,14 +9,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.pupu.rushui.R;
-import com.pupu.rushui.entity.AlarmTime;
-import com.pupu.rushui.util.DataPreference;
-import com.pupu.rushui.view.AlarmListActivity;
 import com.pupu.rushui.base.BaseActivity;
 import com.pupu.rushui.base.BasePresenter;
+import com.pupu.rushui.entity.AlarmTime;
 import com.pupu.rushui.util.CommonUtil;
+import com.pupu.rushui.util.DataPreference;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -26,9 +25,9 @@ import butterknife.OnClick;
 public class SettingActivity extends BaseActivity {
 
 
-    @Bind(R.id.tv_version)
+    @BindView(R.id.tv_version)
     TextView tv_version;
-    @Bind(R.id.tv_alarm)
+    @BindView(R.id.tv_alarm)
     TextView tv_alarm;
     AlarmTime alarmTime;
     final static int CODE_ALARM_DETAIL = 0X001;

@@ -16,7 +16,7 @@ import com.pupu.rushui.entity.AlarmTime;
 import com.pupu.rushui.util.CommonUtil;
 import com.pupu.rushui.widget.SlideAlphaView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -25,9 +25,9 @@ import butterknife.ButterKnife;
 
 public class RingActivity extends Activity {
 
-    @Bind(R.id.tv_time)
+    @BindView(R.id.tv_time)
     TextView tv_time;
-    @Bind(R.id.sav)
+    @BindView(R.id.sav)
     SlideAlphaView sav;
 
     /**

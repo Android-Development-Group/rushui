@@ -1,18 +1,38 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
-    compileSdkVersion 26
+
+    signingConfigs {
+        myConfig {
+            keyAlias 'pupu'
+            keyPassword 'pupukeji'
+            storeFile file('../pupu.jks')
+            storePassword 'pupukeji'
+        }
+    }
+
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+    compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
+
     defaultConfig {
-        applicationId "com.pupu.rushui"
-        minSdkVersion 15
-        targetSdkVersion 26
-        versionCode 1
-        versionName "0.0.1"
+        flavorDimensions "versionCode"
+        applicationId globalConfiguration["applicationId"]
+        minSdkVersion globalConfiguration["androidMinSdkVersion"]
+        targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
+        versionCode globalConfiguration["androidVersionCode"]
+        versionName globalConfiguration["androidVersionName"]
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
     }
     buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL", "\"192.168.0.1\"")
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
         release {
+            buildConfigField("String", "BASE_URL", "\"192.168.0.1\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -26,57 +46,31 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    compile 'com.android.support:design:26.1.0'
     /**
      * 极光推送&统计
      */
     compile files('libs/jcore-android-1.2.0.jar')
     compile files('libs/jpush-android-3.1.2.jar')
     compile files('libs/janalytics-android-1.2.1.jar')
-    /**
-     * butterknife
-     */
-    compile 'com.jakewharton:butterknife:7.0.1'
-    /**
-     * Glide
-     */
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    /**
-     * CardView
-     */
-    compile 'com.android.support:cardview-v7:26.1.0'
-    /**
-     * Recyclerview
-     */
-    compile 'com.android.support:recyclerview-v7:26.1.0'
-    /**
-     * GSON
-     */
-    implementation 'com.google.code.gson:gson:2.2.4'
-    /**
-     * Rx
-     */
-    compile 'io.reactivex:rxjava:1.1.10'
-    compile 'io.reactivex:rxandroid:1.2.1'
-    /**
-     *  Retrofit 2.0
-     */
-    compile 'com.squareup.retrofit2:retrofit:2.0.2'
-    /**
-     * okhttp
-     */
-    compile 'com.squareup.okhttp3:okhttp:3.1.2'
-    /**
-     * Retrofi gson
-     */
-    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
-    /**
-     * RxBus
-     */
-    compile 'com.hwangjr.rxbus:rxbus:1.0.5'
+
+    def common = rootProject.ext.common
+    api common.rxbus
+    api common.rxjava
+    api common.rxandroid
+    api common.retrofit2gson
+    api common.retrofit2
+    api common.okhttp
+    api common.gson
+    api common.recyclerview
+    api common.cardview
+    api common.glide
+    api common.design
+    api common.constraintlayout
+    api common.appcompat
+    api common.butterknife
+
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }

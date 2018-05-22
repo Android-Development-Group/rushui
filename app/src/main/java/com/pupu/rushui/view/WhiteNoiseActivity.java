@@ -6,7 +6,8 @@ import com.pupu.rushui.R;
 import com.pupu.rushui.base.BaseActivity;
 import com.pupu.rushui.base.BasePresenter;
 
-import butterknife.Bind;
+import butterknife.BindView;
+
 
 /**
  * Created by pupu on 2018/5/13.
@@ -14,7 +15,7 @@ import butterknife.Bind;
 
 public class WhiteNoiseActivity extends BaseActivity {
 
-    @Bind(R.id.rv_whiteNoise)
+    @BindView(R.id.rv_whiteNoise)
     RecyclerView rv_whiteNoise;
 
     @Override
