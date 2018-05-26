@@ -27,6 +27,7 @@
         android:layout_marginRight="16dp"
         android:clipChildren="false"
         android:clipToPadding="false"
+        android:gravity="bottom"
         android:orientation="vertical"
         android:visibility="visible">
 
@@ -35,16 +36,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="16dp"
             android:text="睡个好觉  很有必要"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipChildren="false"
             android:clipToPadding="false"
+            android:gravity="bottom"
             android:orientation="horizontal">
 
             <ImageView
@@ -53,18 +55,26 @@
                 android:layout_height="42dp"
                 android:src="@mipmap/img_mine" />
 
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
             <Button
                 android:id="@+id/btn_startSleep"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="0dp"
-                android:layout_height="42dp"
+                android:layout_width="88dp"
+                android:layout_height="88dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_btn_round"
-                android:text="@string/str_startSleep"
+                android:background="@mipmap/img_start_sleep"
                 android:textColor="#ffffff"
                 android:textSize="20sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
 
             <ImageView
                 android:id="@+id/iv_setting"
@@ -83,37 +93,12 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="56dp">
-
-            <com.pupu.rushui.widget.RoundProgressBar
-                android:id="@+id/rpb_play"
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:layout_gravity="center_horizontal"
-                app:max="100"
-                app:roundColor="@android:color/transparent"
-                app:roundProgressColor="@color/white"
-                app:roundWidth="4dp" />
-
-            <ImageView
-                android:id="@+id/iv_playController"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_centerInParent="true"
-                android:src="@mipmap/img_pause" />
-
-        </RelativeLayout>
-
         <TextView
             android:id="@+id/tv_remind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="56dp"
             android:text="@string/str_sleepRemind"
             android:textColor="@color/white"
             android:textSize="16sp" />

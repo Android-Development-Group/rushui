@@ -27,11 +27,13 @@ android {
     }
     buildTypes {
         debug {
+            signingConfig signingConfigs.myConfig
             buildConfigField("String", "BASE_URL", "\"192.168.0.1\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
+            signingConfig signingConfigs.myConfig
             buildConfigField("String", "BASE_URL", "\"192.168.0.1\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

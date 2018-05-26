@@ -5,7 +5,15 @@ import android.os.Message;
 
 import com.pupu.rushui.base.BaseView;
 import com.pupu.rushui.contract.MainContract;
+import com.pupu.rushui.datasource.RushuiDataSource;
+import com.pupu.rushui.entity.AlarmTime;
 import com.pupu.rushui.service.SleepService;
+
+import java.util.Observable;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by pupu on 2018/4/7.
@@ -14,6 +22,12 @@ import com.pupu.rushui.service.SleepService;
 public class MainPresenter implements MainContract.Presenter {
 
     MainContract.View view;
+
+    RushuiDataSource dataSource;
+
+    public MainPresenter() {
+        dataSource = new RushuiDataSource();
+    }
 
     @Override
     public void attachView(BaseView view) {
@@ -26,38 +40,25 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
+    public void preSleep() {
+        view.preSleep();
+    }
+
+    @Override
     public void startSleep() {
-        view.startSleep();
-        //延时1s开始播放助眠音乐
-        new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                SleepService.startSleep();
-            }
-        }.sendEmptyMessageDelayed(0x01, 1000);
+        dataSource.getAlarm()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Action1<AlarmTime>() {
+                    @Override
+                    public void call(AlarmTime alarmTime) {
+                        view.startSleep(alarmTime);
+                    }
+                });
     }
 
     @Override
     public void stopSleep() {
         view.stopSleep();
-        SleepService.stopSleep();
-        view.initSleep();
-    }
-
-    @Override
-    public void initSleep() {
-        view.initSleep();
-    }
-
-    @Override
-    public void controlPlay() {
-        if (SleepService.getPlayStatus() == SleepService.STATE_PAUSEING) {
-            view.resumePlay();
-            SleepService.startPlayWhiteNoise();
-        } else {
-            view.pausePlay();
-            SleepService.pausePlayWhiteNoise();
-        }
     }
 }

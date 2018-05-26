@@ -1,7 +1,12 @@
 package com.pupu.rushui.view;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
@@ -35,9 +40,14 @@ import com.pupu.rushui.widget.SlideAlphaView;
 import com.pupu.rushui.widget.TimeDiskView;
 
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity implements MainContract.View {
 
@@ -51,12 +61,17 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     SlideAlphaView layout_sleeping;
     @BindView(R.id.tdv)
     TimeDiskView tdv;
-    @BindView(R.id.iv_playController)
-    ImageView iv_playController;
-    @BindView(R.id.rpb_play)
-    RoundProgressBar rpb_play;
     @BindView(R.id.tv_remind)
     TextView tv_remind;
+
+    /**
+     * 播放助眠音乐的player
+     */
+    MediaPlayer mediaPlayer;
+    /**
+     * 播放时长，默认3分钟
+     */
+    final static int TIME_PLAY_DURATION = 3 * 60 * 1000;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,15 +81,18 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
-        getPresenter().initSleep();
         RxBusUtils.register(this);
-
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         RxBusUtils.unregister(this);
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 
     @Override
@@ -92,20 +110,16 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     protected void initView() {
-        rpb_play.setMax(SleepService.getPlayDuration());
+        getPresenter().preSleep();
     }
 
     @Override
     protected void initData() {
     }
 
-    @OnClick({R.id.btn_startSleep, R.id.iv_mine, R.id.iv_setting,
-            R.id.iv_playController})
+    @OnClick({R.id.btn_startSleep, R.id.iv_mine, R.id.iv_setting})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_playController:
-                getPresenter().controlPlay();
-                break;
             case R.id.btn_startSleep:
                 getPresenter().startSleep();
                 break;
@@ -119,7 +133,6 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         }
     }
 
-    @Override
     public void startBtnSleepAnim() {
         if (breathAnim != null) {
             breathAnim.cancel();
@@ -134,8 +147,15 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     }
 
     @Override
-    public void initSleep() {
+    public void preSleep() {
         tv_title.setText(R.string.app_name);
+
+        if (layout_bottomBtn.getVisibility() == View.GONE) {
+            layout_bottomBtn.setVisibility(View.VISIBLE);
+        }
+        if (layout_sleeping.getVisibility() == View.VISIBLE) {
+            layout_sleeping.setVisibility(View.GONE);
+        }
 
         startBtnSleepAnim();
 
@@ -149,21 +169,16 @@ public class MainActivity extends BaseActivity implements MainContract.View {
             }
         });
         tdv.start();
-
         tdv.showTimeText();
+
+        //初始化助眠音乐
+        if (mediaPlayer == null) {
+            mediaPlayer = MediaPlayer.create(this, R.raw.rain2);
+        }
     }
 
     @Override
-    public void startSleep() {
-        //隐藏时间文字
-        tdv.hideTimeText();
-
-        rpb_play.setMax(SleepService.getPlayDuration());
-        rpb_play.setProgress(SleepService.getPlayDuration());
-
-        //设置播放图片
-        iv_playController.setImageResource(R.mipmap.img_pause);
-
+    public void startSleep(AlarmTime alarmTime) {
         //隐藏底部三个按钮
         btn_startSleep.clearAnimation();
         Animation alphaAnim = new AlphaAnimation(1f, 0f);
@@ -188,7 +203,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
         //显示播放按钮
         Animation alphaAnim2 = new AlphaAnimation(0f, 1f);
-        alphaAnim2.setDuration(2000);
+        alphaAnim2.setDuration(3000);
         alphaAnim2.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -208,7 +223,6 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         startService(new Intent(this, SleepService.class));
 
         //设置预计睡眠时间
-        AlarmTime alarmTime = DataPreference.getAlarm();
         if (alarmTime != null) {
             AlarmTime curTime = new AlarmTime();
             curTime.setHour24(
@@ -226,36 +240,80 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         } else {
             tv_remind.setText(R.string.str_notSetAlarm);
         }
+        //开启睡眠守护service
+        startService(new Intent(this, SleepService.class));
 
+        //延后2s开始播放助眠音乐
+        Observable.timer(2, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Long>() {
+                    @Override
+                    public void call(Long aLong) {
+                        startPlay();
+                    }
+                });
     }
 
     @Override
     public void stopSleep() {
-        layout_bottomBtn.setVisibility(View.VISIBLE);
+        preSleep();
         start2Activity(SleepResultActivity.class);
+        //停止播放
+        stopPlay();
     }
 
     @Override
-    public void pausePlay() {
-        iv_playController.setImageResource(R.mipmap.img_play);
-    }
-
-    @Override
-    public void resumePlay() {
-        iv_playController.setImageResource(R.mipmap.img_pause);
-    }
-
-
-    @Subscribe(
-            thread = EventThread.MAIN_THREAD,
-            tags = {
-                    @Tag(RxBusConstant.EVENT_PLAYING_WHITENOISE)
+    public void startPlay() {
+        Logger.i(TAG, "startPlay");
+        if (mediaPlayer == null) {
+            mediaPlayer = MediaPlayer.create(this, R.raw.rain2);
+        }
+        mediaPlayer.setVolume(0f, 0f);
+        //渐变播放
+        ValueAnimator fadeVol = ValueAnimator.ofFloat(0f, 1f);
+        fadeVol.setDuration(2000);
+        fadeVol.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                mediaPlayer.setVolume((float) animation.getAnimatedValue(),
+                        (float) animation.getAnimatedValue());
             }
-    )
-    public void updatePlayState(String progress) {
-        Logger.i(TAG, "progress==>" + progress);
-        int p = Integer.parseInt(progress);
-        rpb_play.setProgress(p);
+        });
+        fadeVol.start();
+        mediaPlayer.start();
+        //开启倒计时停止播放
+        Observable.timer(TIME_PLAY_DURATION, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Long>() {
+                    @Override
+                    public void call(Long aLong) {
+                        stopPlay();
+                    }
+                });
     }
 
+    @Override
+    public void stopPlay() {
+        if (mediaPlayer != null) {
+            mediaPlayer.setVolume(1f, 1f);
+            //渐变关闭
+            ValueAnimator fadeVol = ValueAnimator.ofFloat(1f, 0f);
+            fadeVol.setDuration(2000);
+            fadeVol.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    mediaPlayer.setVolume((float) animation.getAnimatedValue(),
+                            (float) animation.getAnimatedValue());
+                    if ((float) animation.getAnimatedValue() <= 0) {
+                        mediaPlayer.stop();
+                        mediaPlayer.release();
+                        mediaPlayer = null;
+                    }
+                }
+            });
+            fadeVol.start();
+        }
+    }
 }

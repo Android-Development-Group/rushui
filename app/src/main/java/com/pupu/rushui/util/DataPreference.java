@@ -44,7 +44,7 @@ public class DataPreference {
      *
      * @return
      */
-    public static synchronized PhoneInfo getPhoneInfo() {
+    public static PhoneInfo getPhoneInfo() {
         PhoneInfo info = new PhoneInfo();
         SharedPreferences preferences = MyApplication.getInstance()
                 .getSharedPreferences("phoneInfo", Context.MODE_PRIVATE);
@@ -77,7 +77,7 @@ public class DataPreference {
      *
      * @return
      */
-    public static synchronized UserInfo getUserInfo() {
+    public static UserInfo getUserInfo() {
         UserInfo user = new UserInfo();
         SharedPreferences preferences = MyApplication.getInstance()
                 .getSharedPreferences("userInfo", Context.MODE_PRIVATE);
@@ -95,7 +95,7 @@ public class DataPreference {
      *
      * @return
      */
-    public static synchronized AlarmTime getAlarm() {
+    public static AlarmTime getAlarm() {
         AlarmTime alarmTime = null;
         SharedPreferences preferences = MyApplication.getInstance()
                 .getSharedPreferences("alarm", Context.MODE_PRIVATE);
@@ -167,7 +167,7 @@ public class DataPreference {
      *
      * @return
      */
-    public static synchronized List<AlarmTime> getAlarmList() {
+    public static List<AlarmTime> getAlarmList() {
         List<AlarmTime> list = null;
         SharedPreferences preferences = MyApplication.getInstance()
                 .getSharedPreferences("alarmList", Context.MODE_PRIVATE);

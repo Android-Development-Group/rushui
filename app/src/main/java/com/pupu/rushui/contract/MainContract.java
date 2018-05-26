@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.pupu.rushui.base.BasePresenter;
 import com.pupu.rushui.base.BaseView;
+import com.pupu.rushui.entity.AlarmTime;
 
 /**
  * Created by pupu on 2018/4/7.
@@ -11,20 +12,16 @@ import com.pupu.rushui.base.BaseView;
 
 public class MainContract {
     public interface View extends BaseView {
-        /**
-         * 开启按钮的呼吸动画
-         */
-        void startBtnSleepAnim();
 
         /**
-         * 睡眠初始化状态
+         * 准备睡眠
          */
-        void initSleep();
+        void preSleep();
 
         /**
          * 开始睡眠
          */
-        void startSleep();
+        void startSleep(AlarmTime alarmTime);
 
         /**
          * 停止睡眠
@@ -32,18 +29,23 @@ public class MainContract {
         void stopSleep();
 
         /**
-         * 暂停播放
+         * 开始播放助眠音乐
          */
-        void pausePlay();
+        void startPlay();
 
         /**
-         * 继续播放
+         * 停止播放
          */
-        void resumePlay();
-
+        void stopPlay();
     }
 
     public interface Presenter extends BasePresenter {
+
+        /**
+         * 准备睡眠
+         */
+        void preSleep();
+
         /**
          * 开始睡眠
          */
@@ -53,15 +55,5 @@ public class MainContract {
          * 停止睡眠
          */
         void stopSleep();
-
-        /**
-         * 初始化睡眠
-         */
-        void initSleep();
-
-        /**
-         * 暂停播放
-         */
-        void controlPlay();
     }
 }
