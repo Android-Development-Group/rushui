@@ -37,6 +37,11 @@ public class MainContract {
          * 停止播放
          */
         void stopPlay();
+
+        /**
+         * 引导注册或登录
+         */
+        void remindLoginOrRegister();
     }
 
     public interface Presenter extends BasePresenter {

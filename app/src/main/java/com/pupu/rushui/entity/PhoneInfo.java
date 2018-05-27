@@ -11,7 +11,7 @@ public class PhoneInfo implements Serializable {
     /**
      * 是否是第一次打开app
      */
-    boolean isFisrtOpen;
+    boolean isFisrtOpen = true;
 
 
     public PhoneInfo() {

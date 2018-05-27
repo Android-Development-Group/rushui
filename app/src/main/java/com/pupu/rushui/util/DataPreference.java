@@ -45,7 +45,7 @@ public class DataPreference {
      * @return
      */
     public static PhoneInfo getPhoneInfo() {
-        PhoneInfo info = new PhoneInfo();
+        PhoneInfo info = null;
         SharedPreferences preferences = MyApplication.getInstance()
                 .getSharedPreferences("phoneInfo", Context.MODE_PRIVATE);
         String tmp = preferences.getString("jsonInfo", "");

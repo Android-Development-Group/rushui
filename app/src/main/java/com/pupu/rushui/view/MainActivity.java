@@ -35,11 +35,14 @@ import com.pupu.rushui.service.SleepService;
 import com.pupu.rushui.util.DataPreference;
 import com.pupu.rushui.util.Logger;
 import com.pupu.rushui.util.RxBusUtils;
+import com.pupu.rushui.widget.HintPopupWindow;
 import com.pupu.rushui.widget.RoundProgressBar;
 import com.pupu.rushui.widget.SlideAlphaView;
 import com.pupu.rushui.widget.TimeDiskView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -124,6 +127,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 getPresenter().startSleep();
                 break;
             case R.id.iv_mine:
+
                 break;
             case R.id.iv_setting:
                 start2Activity(SettingActivity.class);
@@ -314,6 +318,26 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 }
             });
             fadeVol.start();
+        }
+    }
+
+    @Override
+    public void remindLoginOrRegister() {
+        View iv_mine = findViewById(R.id.iv_mine);
+        if (iv_mine != null) {
+            //弹出提示框
+            List<String> contentList = new ArrayList<>();
+            contentList.add(getString(R.string.str_remindRegister));
+            List<View.OnClickListener> clickListenerList = new ArrayList<>();
+            clickListenerList.add(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //跳转注册页
+
+                }
+            });
+            HintPopupWindow tmpWindow = new HintPopupWindow(this, contentList, clickListenerList);
+            tmpWindow.showPopupWindow(iv_mine);
         }
     }
 }
