@@ -91,6 +91,7 @@ public class HintPopupWindow {
         params.height = WindowManager.LayoutParams.MATCH_PARENT;
         params.format = PixelFormat.RGBA_8888;//背景透明
         params.gravity = Gravity.LEFT | Gravity.TOP;
+        params.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
         //当点击根布局时, 隐藏
         rootView.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +140,7 @@ public class HintPopupWindow {
                 setBlurBackground(bitmap);//这里是模糊图片, 这个是重点我会单独讲的, 因为效率很重要啊!!!
 
                 //这里就是使用WindowManager直接将我们处理好的view添加到屏幕最前端
-                windowManager = (WindowManager) activity.getSystemService(Context.WINDOW_SERVICE);
+                windowManager = (WindowManager) activity.getWindowManager();
                 windowManager.addView(rootView, params);
 
                 //这一步就是有回弹效果的弹出动画, 我用属性动画写的, 很简单

@@ -1,16 +1,11 @@
 package com.pupu.rushui.presenter;
 
-import android.os.Handler;
-import android.os.Message;
-
 import com.pupu.rushui.base.BaseView;
 import com.pupu.rushui.contract.MainContract;
 import com.pupu.rushui.datasource.RushuiDataSource;
 import com.pupu.rushui.entity.AlarmTime;
 import com.pupu.rushui.entity.PhoneInfo;
-import com.pupu.rushui.service.SleepService;
 
-import java.util.Observable;
 import java.util.concurrent.TimeUnit;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -44,6 +39,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void preSleep() {
         view.preSleep();
+        //延后3s弹出提示框
         dataSource.getPhoneInfo()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

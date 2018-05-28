@@ -71,10 +71,21 @@ public class MainActivity extends BaseActivity implements MainContract.View {
      * 播放助眠音乐的player
      */
     MediaPlayer mediaPlayer;
+
+    /**
+     * 播放预载铃声的player
+     */
+    MediaPlayer preMediaPlayer;
+
     /**
      * 播放时长，默认3分钟
      */
     final static int TIME_PLAY_DURATION = 3 * 60 * 1000;
+
+    /**
+     * 提示注册登录对话框
+     */
+    HintPopupWindow hintPopupWindow;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,6 +106,11 @@ public class MainActivity extends BaseActivity implements MainContract.View {
             mediaPlayer.stop();
             mediaPlayer.release();
             mediaPlayer = null;
+        }
+        if (preMediaPlayer != null) {
+            preMediaPlayer.stop();
+            preMediaPlayer.release();
+            preMediaPlayer = null;
         }
     }
 
@@ -247,6 +263,10 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         //开启睡眠守护service
         startService(new Intent(this, SleepService.class));
 
+        preMediaPlayer = MediaPlayer.create(this, R.raw.pre_sleep2);
+        preMediaPlayer.setVolume(1f, 1f);
+        preMediaPlayer.start();
+
         //延后2s开始播放助眠音乐
         Observable.timer(2, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
@@ -333,11 +353,22 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 @Override
                 public void onClick(View v) {
                     //跳转注册页
-
+                    if (hintPopupWindow != null) {
+                        hintPopupWindow.dismissPopupWindow();
+                    }
+                    Observable.timer(300, TimeUnit.MILLISECONDS)
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribeOn(Schedulers.io())
+                            .subscribe(new Action1<Long>() {
+                                @Override
+                                public void call(Long aLong) {
+                                    start2Activity(SettingActivity.class);
+                                }
+                            });
                 }
             });
-            HintPopupWindow tmpWindow = new HintPopupWindow(this, contentList, clickListenerList);
-            tmpWindow.showPopupWindow(iv_mine);
+            hintPopupWindow = new HintPopupWindow(this, contentList, clickListenerList);
+            hintPopupWindow.showPopupWindow(iv_mine);
         }
     }
 }

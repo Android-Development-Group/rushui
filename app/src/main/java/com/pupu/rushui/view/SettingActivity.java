@@ -5,7 +5,10 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.pupu.rushui.R;
@@ -48,6 +51,16 @@ public class SettingActivity extends BaseActivity {
     };
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        //无title
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //全屏
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     protected int setLayoutResourceID() {
         return R.layout.activity_setting;
     }
@@ -67,7 +80,7 @@ public class SettingActivity extends BaseActivity {
         }
         if (alarmTime == null) {
             tv_alarm.setText(getString(R.string.str_notSet));
-        }else{
+        } else {
             tv_alarm.setText(alarmTime.parseToTime());
         }
     }

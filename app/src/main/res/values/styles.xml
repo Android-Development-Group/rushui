@@ -9,6 +9,7 @@
     <!-- Activity animation 样式 -->
     <style name="activityAnimation" parent="@android:style/Animation">
         <item name="android:activityOpenEnterAnimation">@anim/activity_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/activity_stay</item>
         <item name="android:activityCloseExitAnimation">@anim/activity_out</item>
     </style>
 
