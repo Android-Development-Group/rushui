@@ -2,6 +2,7 @@ package com.pupu.rushui.base;
 
 import com.pupu.rushui.entity.AlarmTime;
 import com.pupu.rushui.entity.PhoneInfo;
+import com.pupu.rushui.entity.UserInfo;
 
 import rx.Observable;
 
@@ -10,6 +11,18 @@ import rx.Observable;
  */
 
 public interface DataSource {
+
+    /**
+     * 设置用户信息
+     * @param userInfo
+     */
+    void setUserInfo(UserInfo userInfo);
+
+    /**
+     * 获取用户信息
+     * @return
+     */
+    Observable<UserInfo> getUserInfo();
 
     /**
      * 设置闹钟

@@ -1,25 +1,28 @@
 package com.pupu.rushui.view;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.pupu.rushui.R;
 import com.pupu.rushui.base.BaseActivity;
 import com.pupu.rushui.base.BasePresenter;
-import com.pupu.rushui.entity.UserInfo;
-import com.pupu.rushui.net.ApiClient;
+import com.pupu.rushui.util.CommonUtil;
 
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+import butterknife.BindView;
 
 /**
- * Created by pupu on 2018/4/2.
+ * Created by pupu on 2018/5/31.
  */
 
-public class TestActivity extends BaseActivity {
+public class AboutActivity extends BaseActivity {
+
+    @BindView(R.id.tv_version)
+    TextView tv_version;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         //无title
@@ -32,7 +35,7 @@ public class TestActivity extends BaseActivity {
 
     @Override
     protected int setLayoutResourceID() {
-        return R.layout.activity_test;
+        return R.layout.activity_about;
     }
 
     @Override
@@ -42,23 +45,18 @@ public class TestActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        tv_title.setText(R.string.str_about);
+        try {
+            tv_version.setText(CommonUtil.getAppVersion(getPackageName())
+                    + "."
+                    + CommonUtil.getVersionCode(this));
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void initData() {
 
-    }
-
-    public void test() {
-        ApiClient.getInstance().getApi().loginByPhoneNum("123", "123")
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Action1<UserInfo>() {
-                    @Override
-                    public void call(UserInfo userInfo) {
-
-                    }
-                });
     }
 }

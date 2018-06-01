@@ -5,6 +5,7 @@ import com.pupu.rushui.contract.MainContract;
 import com.pupu.rushui.datasource.RushuiDataSource;
 import com.pupu.rushui.entity.AlarmTime;
 import com.pupu.rushui.entity.PhoneInfo;
+import com.pupu.rushui.util.DataPreference;
 
 import java.util.concurrent.TimeUnit;
 
@@ -34,6 +35,14 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void detachView() {
         this.view = null;
+    }
+
+    @Override
+    public boolean checkIsLogined() {
+        if (DataPreference.getUserInfo() == null) {
+            return false;
+        }
+        return true;
     }
 
     @Override

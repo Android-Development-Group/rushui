@@ -27,6 +27,11 @@
         <item name="android:button">@drawable/bg_cb</item>
     </style>
 
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+    </style>
+
     <!--圆形进度条-->
     <declare-styleable name="RoundProgressBar">
         <attr name="roundColor" format="color" />

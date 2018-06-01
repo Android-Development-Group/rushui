@@ -25,4 +25,19 @@
     <string name="str_sleepRemind">预计睡眠%1$d小时</string>
     <string name="str_notSetAlarm">未设置闹钟</string>
     <string name="str_remindRegister">注册登录后即可同步数据</string>
+    <string name="str_aboutDiscribe">睡个好觉\n很有必要</string>
+    <string name="str_aboutCompany">Copy right by 谱谱科技\n入睡®</string>
+    <string name="str_login">登录</string>
+    <string name="hint_login">输入手机号</string>
+    <string name="str_passwordLogin">账号密码登录</string>
+    <string name="str_goRegister">去注册</string>
+    <string name="str_verifyCode">验证码</string>
+    <string name="hint_verifyCode">输入6位验证码</string>
+    <string name="str_request">提交</string>
+    <string name="str_remindVerify">%1$ds后可重试</string>
+    <string name="str_retry">重试</string>
+    <string name="str_remindVerifyPhone">已向%1$s发送短信，请留意</string>
+    <string name="toast_code_err">请填写6位验证码</string>
+    <string name="str_getVerifyCode">获取验证码</string>
+    <string name="str_welcome">等你入睡</string>
 </resources>

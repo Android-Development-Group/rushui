@@ -28,8 +28,6 @@ import butterknife.OnClick;
 public class SettingActivity extends BaseActivity {
 
 
-    @BindView(R.id.tv_version)
-    TextView tv_version;
     @BindView(R.id.tv_alarm)
     TextView tv_alarm;
     AlarmTime alarmTime;
@@ -73,11 +71,6 @@ public class SettingActivity extends BaseActivity {
     @Override
     protected void initView() {
         tv_title.setText(R.string.str_setting);
-        try {
-            tv_version.setText(CommonUtil.getAppVersion(getPackageName()) + "." + CommonUtil.getVersionCode(this.getApplicationContext()));
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
         if (alarmTime == null) {
             tv_alarm.setText(getString(R.string.str_notSet));
         } else {
@@ -90,7 +83,7 @@ public class SettingActivity extends BaseActivity {
         alarmTime = DataPreference.getAlarm();
     }
 
-    @OnClick({R.id.layout_version, R.id.layout_clock, R.id.layout_whiteNoise,
+    @OnClick({R.id.layout_clock, R.id.layout_whiteNoise,
             R.id.layout_zaoshui, R.id.layout_about})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -103,6 +96,9 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.layout_whiteNoise:
 
+                break;
+            case R.id.layout_about:
+                start2Activity(AboutActivity.class);
                 break;
             default:
                 break;

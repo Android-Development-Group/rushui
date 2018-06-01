@@ -2,8 +2,11 @@ package com.pupu.rushui.net;
 
 import com.pupu.rushui.entity.AlarmTime;
 import com.pupu.rushui.entity.UserInfo;
+
 import java.util.List;
+
 import okhttp3.ResponseBody;
+import retrofit2.http.POST;
 import rx.Observable;
 
 /**
@@ -16,11 +19,11 @@ public interface Api {
     /**
      * 手机号登录
      *
-     * @param userName   用户名（手机号）
-     * @param userPasswd 密码（MD5加密）
+     * @param userName 用户名（手机号）
      * @return
      */
-    Observable<UserInfo> loginByPhoneNum(String userName, String userPasswd);
+    @POST(NetAction.LOGIN_REGISTER)
+    Observable<UserInfo> loginByPhoneNum(String userName);
 
     /**
      * 手机号请求注册，服务器发送验证码
@@ -37,7 +40,8 @@ public interface Api {
      * @param smsCode  短信验证码
      * @return
      */
-    Observable<ResponseBody> verifySMSCode(String phoneNum, String smsCode);
+    @POST(NetAction.VERIFY_CODE)
+    Observable<UserInfo> verifySMSCode(String phoneNum, String smsCode);
 
     /**
      * 上传&更新用户信息

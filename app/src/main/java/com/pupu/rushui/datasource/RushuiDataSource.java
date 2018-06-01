@@ -3,6 +3,7 @@ package com.pupu.rushui.datasource;
 import com.pupu.rushui.base.DataSource;
 import com.pupu.rushui.entity.AlarmTime;
 import com.pupu.rushui.entity.PhoneInfo;
+import com.pupu.rushui.entity.UserInfo;
 import com.pupu.rushui.util.DataPreference;
 
 import rx.Observable;
@@ -15,6 +16,22 @@ import rx.Subscriber;
 public class RushuiDataSource implements DataSource {
 
     public RushuiDataSource() {
+    }
+
+    @Override
+    public void setUserInfo(UserInfo userInfo) {
+        DataPreference.setUserInfo(userInfo);
+    }
+
+    @Override
+    public Observable<UserInfo> getUserInfo() {
+        return Observable.create(new Observable.OnSubscribe<UserInfo>() {
+            @Override
+            public void call(Subscriber<? super UserInfo> subscriber) {
+                UserInfo userInfo = DataPreference.getUserInfo();
+                subscriber.onNext(userInfo);
+            }
+        });
     }
 
     @Override

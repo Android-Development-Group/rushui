@@ -47,6 +47,7 @@
 
         <activity
             android:name=".view.MainActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"></activity>
 
         <activity
@@ -72,6 +73,18 @@
             android:theme="@style/CommonDialog">
 
         </activity>
+
+        <activity
+            android:name=".view.AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.LoginRegisterActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".view.VerifyCodeActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".view.TestActivity"
             android:screenOrientation="portrait"></activity>

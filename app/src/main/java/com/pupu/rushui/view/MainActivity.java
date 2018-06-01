@@ -1,16 +1,10 @@
 package com.pupu.rushui.view;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,24 +13,17 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.annotation.Tag;
-import com.hwangjr.rxbus.thread.EventThread;
 import com.pupu.rushui.R;
 import com.pupu.rushui.base.BaseActivity;
-import com.pupu.rushui.common.RxBusConstant;
 import com.pupu.rushui.contract.MainContract;
 import com.pupu.rushui.entity.AlarmTime;
 import com.pupu.rushui.presenter.MainPresenter;
 import com.pupu.rushui.service.SleepService;
-import com.pupu.rushui.util.DataPreference;
 import com.pupu.rushui.util.Logger;
 import com.pupu.rushui.util.RxBusUtils;
 import com.pupu.rushui.widget.HintPopupWindow;
-import com.pupu.rushui.widget.RoundProgressBar;
 import com.pupu.rushui.widget.SlideAlphaView;
 import com.pupu.rushui.widget.TimeDiskView;
 
@@ -143,7 +130,11 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 getPresenter().startSleep();
                 break;
             case R.id.iv_mine:
-
+                if (getPresenter().checkIsLogined()) {
+//                  start2Activity(MineActivity.class);
+                } else {
+                    start2Activity(LoginRegisterActivity.class);
+                }
                 break;
             case R.id.iv_setting:
                 start2Activity(SettingActivity.class);

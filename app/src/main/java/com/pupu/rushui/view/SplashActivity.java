@@ -6,7 +6,6 @@ import android.os.Message;
 import com.pupu.rushui.R;
 import com.pupu.rushui.base.BaseActivity;
 import com.pupu.rushui.base.BasePresenter;
-import com.pupu.rushui.view.MainActivity;
 
 
 /**

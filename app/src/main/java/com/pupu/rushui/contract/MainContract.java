@@ -1,7 +1,5 @@
 package com.pupu.rushui.contract;
 
-import android.app.Activity;
-
 import com.pupu.rushui.base.BasePresenter;
 import com.pupu.rushui.base.BaseView;
 import com.pupu.rushui.entity.AlarmTime;
@@ -42,9 +40,17 @@ public class MainContract {
          * 引导注册或登录
          */
         void remindLoginOrRegister();
+
+
     }
 
     public interface Presenter extends BasePresenter {
+
+        /**
+         * 检查是否已登录
+         * @return
+         */
+        boolean checkIsLogined();
 
         /**
          * 准备睡眠
