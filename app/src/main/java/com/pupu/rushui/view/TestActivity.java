@@ -10,7 +10,14 @@ import com.pupu.rushui.base.BaseActivity;
 import com.pupu.rushui.base.BasePresenter;
 import com.pupu.rushui.entity.UserInfo;
 import com.pupu.rushui.net.ApiClient;
+import com.pupu.rushui.util.Logger;
 
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -42,7 +49,7 @@ public class TestActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        test();
     }
 
     @Override
@@ -51,13 +58,47 @@ public class TestActivity extends BaseActivity {
     }
 
     public void test() {
-        ApiClient.getInstance().getApi().loginByPhoneNum("123", "123")
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Action1<UserInfo>() {
-                    @Override
-                    public void call(UserInfo userInfo) {
+//        Call<ResponseBody> call = ApiClient.getInstance().getApi().testNet("xxx");
+//        Logger.i("pupu", call.request().body().toString());
+//        try {
+//            Response<ResponseBody> response = call.execute();
+//            System.out.println(response.body().string());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        call.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                try {
+//                    Logger.i("pupu", response.body().string());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                t.printStackTrace();
+//            }
+//        });
 
+        ApiClient.getInstance().getApi().testNet("@ctitle")
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody responseBody) {
+                        try {
+                            System.out.println(responseBody.string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        System.out.println(throwable.toString());
                     }
                 });
     }

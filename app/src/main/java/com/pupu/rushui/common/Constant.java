@@ -10,7 +10,7 @@ import com.pupu.rushui.app.MyApplication;
 
 public class Constant {
     public final static String CACHE_PATH = Environment.getExternalStorageDirectory() + "/" + MyApplication.getInstance().getPackageName() + "/cache/";
-    public final static String BASE_URL = "http://rap2api.taobao.org/app/mock/14761/yyy/getGoodsInfoByBarcde";
+    public final static String BASE_URL = "http://rap2api.taobao.org/";
 
     /**
      * 闹钟响起事件
@@ -20,4 +20,12 @@ public class Constant {
      * 关闭闹钟
      */
     public final static String ALARM_CLOSE_RING = "com.pupu.rushui.alarmclosering";
+    /**
+     * 连接超时时间
+     */
+    public static final long CONNECT_TIMEOUT_MILLIS = 3 * 1000;
+    /**
+     * 响应超时时间
+     */
+    public static final long READ_TIMEOUT_MILLIS = 3 * 1000;
 }

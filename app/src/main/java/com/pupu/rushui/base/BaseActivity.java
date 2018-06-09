@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pupu.rushui.R;
+import com.pupu.rushui.app.MyActivityManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +44,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         if (getPresenter() != null) {
             getPresenter().attachView(this);
         }
+
+        MyActivityManager.addActivity(this);
 
         initData();
         initView();
@@ -120,6 +123,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         if (getPresenter() != null) {
             getPresenter().detachView();
         }
+        MyActivityManager.finishActivity(this);
         //极光统计
         JAnalyticsInterface.onPageEnd(this, this.getClass().getCanonicalName());
     }

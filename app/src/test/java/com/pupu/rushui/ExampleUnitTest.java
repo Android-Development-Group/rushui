@@ -1,16 +1,19 @@
 package com.pupu.rushui;
 
-import android.view.View;
-
-import com.pupu.rushui.util.Logger;
+import com.pupu.rushui.net.ApiClient;
 
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
 
-import static org.junit.Assert.*;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -18,6 +21,11 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
+
+    public static void main(String[] args) {
+        System.out.println("ok");
+    }
+
     @Test
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
@@ -81,4 +89,33 @@ public class ExampleUnitTest {
             }
         }
     }
+
+    @Test
+    public void testNet() {
+        ApiClient.getInstance().getApi().testNet("@ctitle")
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody responseBody) {
+                        try {
+                            System.out.println(responseBody.string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        System.out.println(throwable.toString());
+                    }
+                });
+//        try {
+//            Response<ResponseBody> response = call.execute();
+//            System.out.println(response.body().string());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+    }
+
 }

@@ -2,6 +2,7 @@ package com.pupu.rushui.view;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,6 +10,8 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.pupu.rushui.R;
@@ -27,6 +30,8 @@ import butterknife.OnClick;
 
 public class SettingActivity extends BaseActivity {
 
+    @BindView(R.id.sb_alarm)
+    Switch sb_alarm;
 
     @BindView(R.id.tv_alarm)
     TextView tv_alarm;
@@ -76,6 +81,33 @@ public class SettingActivity extends BaseActivity {
         } else {
             tv_alarm.setText(alarmTime.parseToTime());
         }
+        sb_alarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (alarmTime != null) {
+                    if (isChecked == true) {
+                        alarmTime.setOpen(true);
+                        CommonUtil.showToast(R.string.str_on);
+                    } else {
+                        alarmTime.setOpen(false);
+                        CommonUtil.showToast(R.string.str_off);
+                    }
+                    DataPreference.setAlarm(alarmTime);
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (alarmTime != null) {
+            if (alarmTime.isOpen() == true) {
+                sb_alarm.setChecked(true);
+            } else {
+                sb_alarm.setChecked(false);
+            }
+        }
     }
 
     @Override
@@ -84,9 +116,24 @@ public class SettingActivity extends BaseActivity {
     }
 
     @OnClick({R.id.layout_clock, R.id.layout_whiteNoise,
-            R.id.layout_zaoshui, R.id.layout_about})
+            R.id.layout_zaoshui, R.id.layout_about, R.id.layout_fuckApp,
+            R.id.layout_markApp})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.layout_markApp:
+                try {
+                    Uri uri = Uri.parse("market://details?id=" + getPackageName());
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    CommonUtil.showToast(R.string.str_noMarket);
+                }
+                break;
+            case R.id.layout_fuckApp:
+                start2Activity(FuckAppActivity.class);
+                break;
             case R.id.layout_clock:
                 Bundle alarmBundle = new Bundle();
                 if (alarmTime != null) {

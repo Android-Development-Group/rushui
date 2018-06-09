@@ -6,6 +6,11 @@ import com.pupu.rushui.entity.UserInfo;
 import java.util.List;
 
 import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import rx.Observable;
 
@@ -16,14 +21,18 @@ import rx.Observable;
 
 public interface Api {
 
+    @FormUrlEncoded
+    @POST("app/mock/14802//example/1527583449656")
+    Observable<ResponseBody> testNet(@Field("foo") String foo);
+
     /**
      * 手机号登录
      *
-     * @param userName 用户名（手机号）
+     * @param phoneNum 用户名（手机号）
      * @return
      */
     @POST(NetAction.LOGIN_REGISTER)
-    Observable<UserInfo> loginByPhoneNum(String userName);
+    Observable<UserInfo> loginByPhoneNum(String phoneNum);
 
     /**
      * 手机号请求注册，服务器发送验证码

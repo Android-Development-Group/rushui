@@ -70,6 +70,7 @@ dependencies {
     api common.constraintlayout
     api common.appcompat
     api common.butterknife
+    api common.rxadapter
 
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     testImplementation 'junit:junit:4.12'

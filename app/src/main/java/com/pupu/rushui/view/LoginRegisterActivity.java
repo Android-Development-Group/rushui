@@ -2,37 +2,36 @@ package com.pupu.rushui.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
-import android.view.View;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.view.ViewParent;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.pupu.rushui.R;
+import com.pupu.rushui.adapter.CommonPagerAdapter;
 import com.pupu.rushui.base.BaseActivity;
-import com.pupu.rushui.contract.LoginContract;
-import com.pupu.rushui.presenter.LoginPresenter;
-import com.pupu.rushui.util.CommonUtil;
-import com.pupu.rushui.widget.LoadingButton;
+import com.pupu.rushui.base.BasePresenter;
+import com.pupu.rushui.view.fragment.PhoneNumFragment;
+import com.pupu.rushui.view.fragment.VerifyCodeFragment;
+import com.pupu.rushui.widget.NoScrollViewPager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * Created by pupu on 2018/5/10.
  */
 
-public class LoginRegisterActivity extends BaseActivity<LoginContract.Presenter> implements LoginContract.View {
+public class LoginRegisterActivity extends BaseActivity {
 
-    @BindView(R.id.tv_prePhoneNum)
-    TextView tv_prePhoneNum;
-    @BindView(R.id.et_phoneNum)
-    EditText et_phoneNum;
-    @BindView(R.id.btn_login)
-    LoadingButton btn_login;
+    @BindView(R.id.vp_loginRegister)
+    NoScrollViewPager vp_loginRegister;
 
-    String phoneNum;
+    List<Fragment> fragments;
+    CommonPagerAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,16 +50,19 @@ public class LoginRegisterActivity extends BaseActivity<LoginContract.Presenter>
 
 
     @Override
-    protected LoginContract.Presenter getPresenter() {
-        if (presenter == null) {
-            presenter = new LoginPresenter();
-        }
-        return presenter;
+    protected BasePresenter getPresenter() {
+        return null;
     }
 
     @Override
     protected void initView() {
         tv_title.setText(R.string.str_welcome);
+        fragments = new ArrayList<>();
+        fragments.add(new PhoneNumFragment());
+        fragments.add(new VerifyCodeFragment());
+
+        adapter = new CommonPagerAdapter(getSupportFragmentManager(), fragments);
+        vp_loginRegister.setAdapter(adapter);
     }
 
     @Override
@@ -69,45 +71,16 @@ public class LoginRegisterActivity extends BaseActivity<LoginContract.Presenter>
     }
 
     @Override
-    public void onFailed(String msg) {
-        CommonUtil.showToast(msg);
-        btn_login.setEnabled(true);
-        btn_login.stopLoading();
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
     }
 
-    @Override
-    public void onSuccess() {
-        btn_login.stopLoading();
-        //跳转验证码页面
-        Bundle bundle = new Bundle();
-        bundle.putString("phoneNum", phoneNum);
-        start2Activity(VerifyCodeActivity.class, bundle);
-    }
-
-    @OnClick({
-            R.id.btn_login, R.id.tv_prePhoneNum, R.id.tv_passwordLogin
-    })
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.btn_login:
-                phoneNum = et_phoneNum.getText().toString().trim();
-                if (TextUtils.isEmpty(phoneNum)) {
-                    CommonUtil.showToast(R.string.toast_phonenum_null);
-                    return;
-                }
-                if (!CommonUtil.isPhoneNum(phoneNum)) {
-                    CommonUtil.showToast(R.string.toast_phonenum_err);
-                    return;
-                }
-                btn_login.setEnabled(false);
-                btn_login.startLoading();
-                getPresenter().loginByPhoneNum(phoneNum);
-                break;
-            case R.id.tv_prePhoneNum:
-
-                break;
-            case R.id.tv_passwordLogin:
-                break;
-        }
+    /**
+     * 切换fragment
+     */
+    public void changeTab(Bundle bundle) {
+        fragments.get(1).setArguments(bundle);
+        vp_loginRegister.setCurrentItem(1);
     }
 }

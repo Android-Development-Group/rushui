@@ -4,10 +4,6 @@
     android:layout_height="match_parent"
     android:background="@color/bule_1">
 
-    <include
-        android:id="@+id/topBar"
-        layout="@layout/layout_topbar" />
-
     <EditText
         android:id="@+id/et_code"
         style="@style/MyEditText"
@@ -18,13 +14,14 @@
         android:layout_marginRight="16dp"
         android:gravity="center"
         android:hint="@string/hint_verifyCode"
+        android:inputType="number"
         android:maxLines="1"
         android:singleLine="true"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="16sp" />
 
-    <Button
+    <com.pupu.rushui.widget.LoadingButton
         android:id="@+id/btn_request"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
@@ -58,5 +55,6 @@
         android:layout_marginTop="8dp"
         android:text="@string/str_passwordLogin"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:visibility="gone" />
 </RelativeLayout>

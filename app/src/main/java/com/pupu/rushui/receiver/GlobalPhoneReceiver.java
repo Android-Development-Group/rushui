@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 
 import com.google.gson.Gson;
 import com.pupu.rushui.R;
+import com.pupu.rushui.util.DataPreference;
 import com.pupu.rushui.view.RingActivity;
 import com.pupu.rushui.common.Constant;
 import com.pupu.rushui.entity.AlarmTime;
@@ -60,33 +61,38 @@ public class GlobalPhoneReceiver extends BroadcastReceiver {
         if (intent.getAction().equals("android.net.conn.CONNECTIVITY_CHANGE")) {
         }
         if (intent.getAction().equals(Constant.ALARM_WAKE_UP)) {
-            //播放音乐
-            if (mediaPlayer != null) {
-                mediaPlayer.stop();
-                mediaPlayer.release();
-            }
-            mediaPlayer = MediaPlayer.create(appContext, R.raw.ring);
-            mediaPlayer.setLooping(true);
-            mediaPlayer.start();
-            //震动
-            CommonUtil.vibrateStart(appContext, new long[]{1000, 1000, 1000, 1000}, 0);
-            //跳转页面
-            String strTime = intent.getExtras().getString("alarmTime");
-            Gson gson = new Gson();
-            AlarmTime alarmTime = gson.fromJson(strTime, AlarmTime.class);
-            Intent alarmIntent = new Intent(appContext, RingActivity.class);
-            alarmIntent.addFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY |
-                    Intent.FLAG_ACTIVITY_NEW_TASK);
-            alarmIntent.putExtra("alarmTime", alarmTime);
-            appContext.startActivity(alarmIntent);
+            //判断闹钟是否真的已经开启
+            if (DataPreference.getAlarm() != null &&
+                    DataPreference.getAlarm().isOpen() == true) {
+                //播放音乐
+                if (mediaPlayer != null) {
+                    mediaPlayer.stop();
+                    mediaPlayer.release();
+                }
+                mediaPlayer = MediaPlayer.create(appContext, R.raw.ring);
+                mediaPlayer.setLooping(true);
+                mediaPlayer.start();
+                //震动
+                CommonUtil.vibrateStart(appContext, new long[]{1000, 1000, 1000, 1000}, 0);
+                //跳转页面
+                String strTime = intent.getExtras().getString("alarmTime");
+                Gson gson = new Gson();
+                AlarmTime alarmTime = gson.fromJson(strTime, AlarmTime.class);
+                Intent alarmIntent = new Intent(appContext, RingActivity.class);
+                alarmIntent.addFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY |
+                        Intent.FLAG_ACTIVITY_NEW_TASK);
+                alarmIntent.putExtra("alarmTime", alarmTime);
+                appContext.startActivity(alarmIntent);
 
-            //创建通知栏
-            JPushLocalNotification notification = new JPushLocalNotification();
-            notification.setNotificationId(ID_NOTI_RING);
-            notification.setContent(appContext.getString(R.string.str_wakeup));
-            notification.setTitle(appContext.getString(R.string.str_alarmClock));
-            notification.setExtras(strTime);
-            JPushInterface.addLocalNotification(appContext, notification);
+                //创建通知栏
+                JPushLocalNotification notification = new JPushLocalNotification();
+                notification.setNotificationId(ID_NOTI_RING);
+                notification.setContent(appContext.getString(R.string.str_wakeup));
+                notification.setTitle(appContext.getString(R.string.str_alarmClock));
+                notification.setExtras(strTime);
+                JPushInterface.addLocalNotification(appContext, notification);
+            }
+
         }
         if (intent.getAction().equals(Constant.ALARM_CLOSE_RING)) {
             //关闭音乐

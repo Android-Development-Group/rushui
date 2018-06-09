@@ -134,6 +134,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 //                  start2Activity(MineActivity.class);
                 } else {
                     start2Activity(LoginRegisterActivity.class);
+                    overridePendingTransition(R.anim.activity_in,R.anim.activity_out);
                 }
                 break;
             case R.id.iv_setting:

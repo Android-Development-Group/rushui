@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+
 import com.pupu.rushui.R;
 import com.pupu.rushui.app.MyApplication;
 import com.pupu.rushui.base.BaseActivity;
@@ -18,7 +19,9 @@ import com.pupu.rushui.util.AlarmManagerUtil;
 import com.pupu.rushui.util.DataPreference;
 import com.pupu.rushui.util.Logger;
 import com.pupu.rushui.widget.TimeDiskView;
+
 import java.util.Calendar;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -83,6 +86,7 @@ public class AlarmDetailActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        tv_title.setVisibility(View.GONE);
         tdv.setOnTimeChangedListener(new TimeDiskView.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(boolean apm, int hour, int minute, int second) {

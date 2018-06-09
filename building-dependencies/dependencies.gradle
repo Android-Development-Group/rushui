@@ -37,5 +37,6 @@ ext {
             constraintlayout: 'com.android.support.constraint:constraint-layout:1.0.2',
             appcompat       : 'com.android.support:appcompat-v7:26.1.0',
             butterknife     : 'com.jakewharton:butterknife:8.4.0',
+            rxadapter       : 'com.squareup.retrofit2:adapter-rxjava:2.3.0',
     ]
 }
