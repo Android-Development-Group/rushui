@@ -1,23 +1,14 @@
 package com.pupu.rushui.entity;
 
-import java.io.Serializable;
-import java.util.Arrays;
-
 /**
  * Created by pupu on 2018/4/15.
  */
 
-public class AlarmTime implements Serializable {
+public class AlarmTime extends BaseDO {
 
     int id;
     int hour24, hour, minute, second;
     boolean isNoon;
-    int year, month, day;
-    /**
-     * 一周之内的哪些天有效
-     */
-    boolean[] weeks = new boolean[7];
-
     /**
      * 是否开启
      */
@@ -78,30 +69,6 @@ public class AlarmTime implements Serializable {
         isNoon = noon;
     }
 
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public int getDay() {
-        return day;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
-    }
-
     public boolean isOpen() {
         return isOpen;
     }
@@ -139,10 +106,6 @@ public class AlarmTime implements Serializable {
                 ", minute=" + minute +
                 ", second=" + second +
                 ", isNoon=" + isNoon +
-                ", year=" + year +
-                ", month=" + month +
-                ", day=" + day +
-                ", weeks=" + Arrays.toString(weeks) +
                 ", isOpen=" + isOpen +
                 '}';
     }

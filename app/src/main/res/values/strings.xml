@@ -22,7 +22,7 @@
     <string name="str_notSet">未设置</string>
     <string name="str_slideDown">下滑小睡一会</string>
     <string name="str_share">分享</string>
-    <string name="str_sleepRemind">预计睡眠%1$d小时</string>
+    <string name="str_sleepRemind">预计睡眠%1$s小时</string>
     <string name="str_notSetAlarm">未设置闹钟</string>
     <string name="str_remindRegister">注册登录后即可同步数据</string>
     <string name="str_aboutDiscribe">睡个好觉\n很有必要</string>
@@ -34,7 +34,7 @@
     <string name="str_verifyCode">验证码</string>
     <string name="hint_verifyCode">输入6位验证码</string>
     <string name="str_request">提交</string>
-    <string name="str_remindVerify">%1$ds 后可重试</string>
+    <string name="str_remindVerify">%1$ss 后可重试</string>
     <string name="str_retry">重试</string>
     <string name="str_remindVerifyPhone">已向%1$s发送短信，请留意</string>
     <string name="toast_code_err">请填写6位验证码</string>
@@ -45,4 +45,11 @@
     <string name="str_noMarket">你的手机未安装应用市场</string>
     <string name="str_on">开启</string>
     <string name="str_off">关闭</string>
+    <string name="str_mine">我的</string>
+    <string name="str_user">用户</string>
+    <string name="str_birth">诞辰(%1$s年%2$s月%3$s日)</string>
+    <string name="str_weight">吨位</string>
+    <string name="str_weight_kg">%1$skg</string>
+    <string name="str_height_cm">%1$scm</string>
+    <string name="str_height">海拔</string>
 </resources>

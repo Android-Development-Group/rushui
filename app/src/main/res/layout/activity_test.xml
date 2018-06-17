@@ -6,11 +6,19 @@
     android:clipChildren="false"
     android:clipToPadding="false">
 
-    <com.pupu.rushui.widget.TimeDiskView
+    <!--<com.pupu.rushui.widget.TimeDiskView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:visibility="visible">-->
+    <!--</com.pupu.rushui.widget.TimeDiskView>-->
+
+    <com.pupu.rushui.widget.BirthView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible">
-    </com.pupu.rushui.widget.TimeDiskView>
+        android:layout_height="88dp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="16dp">
+
+    </com.pupu.rushui.widget.BirthView>
 
     <include
         layout="@layout/layout_topbar"

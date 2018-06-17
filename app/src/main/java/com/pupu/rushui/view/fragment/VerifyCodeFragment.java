@@ -9,8 +9,10 @@ import android.widget.TextView;
 import com.pupu.rushui.R;
 import com.pupu.rushui.base.BaseFragment;
 import com.pupu.rushui.contract.LoginContract;
+import com.pupu.rushui.entity.UserInfo;
 import com.pupu.rushui.presenter.LoginPresenter;
 import com.pupu.rushui.util.CommonUtil;
+import com.pupu.rushui.util.DataPreference;
 import com.pupu.rushui.widget.LoadingButton;
 
 import java.util.concurrent.TimeUnit;
@@ -117,6 +119,15 @@ public class VerifyCodeFragment extends BaseFragment<LoginContract.Presenter> im
                         .subscribe(new Action1<Long>() {
                             @Override
                             public void call(Long aLong) {
+                                UserInfo userInfo = new UserInfo();
+                                userInfo.setUserToken("xxxx");
+                                userInfo.setUserName("xxx");
+                                userInfo.setSex("man");
+                                userInfo.setPhoneNum("12323332333");
+                                userInfo.setWeight(60);
+                                userInfo.setHeight(172);
+                                userInfo.setUserId(13);
+                                DataPreference.setUserInfo(userInfo);
                                 onSuccess();
                             }
                         });

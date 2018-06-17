@@ -131,10 +131,10 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 break;
             case R.id.iv_mine:
                 if (getPresenter().checkIsLogined()) {
-//                  start2Activity(MineActivity.class);
+                  start2Activity(MineActivity.class);
                 } else {
                     start2Activity(LoginRegisterActivity.class);
-                    overridePendingTransition(R.anim.activity_in,R.anim.activity_out);
+                    overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                 }
                 break;
             case R.id.iv_setting:
@@ -247,7 +247,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 deta = alarmTime.getHour24() - curTime.getHour24();
             }
             tv_remind.setText(String.format(
-                    getString(R.string.str_sleepRemind), deta
+                    getString(R.string.str_sleepRemind), deta + ""
             ));
         } else {
             tv_remind.setText(R.string.str_notSetAlarm);

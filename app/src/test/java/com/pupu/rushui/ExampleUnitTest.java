@@ -1,10 +1,17 @@
 package com.pupu.rushui;
 
+import com.google.gson.Gson;
+import com.pupu.rushui.entity.SleepData;
+import com.pupu.rushui.entity.UserInfo;
+import com.pupu.rushui.entity.WhiteNoise;
 import com.pupu.rushui.net.ApiClient;
 
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -116,6 +123,56 @@ public class ExampleUnitTest {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+    }
+
+    @Test
+    public void testData() {
+        Gson gson = new Gson();
+
+        UserInfo userInfo = new UserInfo();
+        userInfo.setAvatarUrl("xxxx");
+        userInfo.setBirth(new Date());
+        userInfo.setCreateDate(new Date());
+        userInfo.setUpdateDate(new Date());
+        userInfo.setAlarmTime(new Date());
+        userInfo.setHeight(175);
+        userInfo.setWeight(60);
+        userInfo.setPhoneNum("12323332333");
+        userInfo.setPassword("666666");
+        userInfo.setSex("man");
+        userInfo.setUserName("pupu");
+        userInfo.setUserToken("xxxxxx");
+
+        System.out.println(gson.toJson(userInfo));
+
+        System.out.println(gson.fromJson(
+                gson.toJson(userInfo)
+                , UserInfo.class
+        ));
+
+        List<WhiteNoise> whiteNoiseList = new ArrayList<>();
+        WhiteNoise whiteNoise = new WhiteNoise();
+        whiteNoise.setId(1);
+        whiteNoise.setName("篝火");
+        whiteNoise.setUrl("xxxxx");
+//        whiteNoise.setLocalUrl("xxxx");
+        whiteNoiseList.add(whiteNoise);
+        whiteNoiseList.add(whiteNoise);
+        whiteNoiseList.add(whiteNoise);
+        whiteNoiseList.add(whiteNoise);
+        System.out.println(gson.toJson(whiteNoiseList));
+
+        List<SleepData> sleepDataList = new ArrayList<>();
+        SleepData sleepData = new SleepData();
+        sleepData.setId(0);
+        sleepData.setCreateTime(new Date());
+        sleepData.setEndTime(new Date());
+        sleepData.setStartTime(new Date());
+        sleepDataList.add(sleepData);
+        sleepDataList.add(sleepData);
+        sleepDataList.add(sleepData);
+        sleepDataList.add(sleepData);
+        System.out.println(gson.toJson(sleepDataList));
     }
 
 }

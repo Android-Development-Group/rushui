@@ -83,23 +83,23 @@ public class TestActivity extends BaseActivity {
 //            }
 //        });
 
-        ApiClient.getInstance().getApi().testNet("@ctitle")
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe(new Action1<ResponseBody>() {
-                    @Override
-                    public void call(ResponseBody responseBody) {
-                        try {
-                            System.out.println(responseBody.string());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        System.out.println(throwable.toString());
-                    }
-                });
+//        ApiClient.getInstance().getApi().testNet("@ctitle")
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(Schedulers.io())
+//                .subscribe(new Action1<ResponseBody>() {
+//                    @Override
+//                    public void call(ResponseBody responseBody) {
+//                        try {
+//                            System.out.println(responseBody.string());
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }, new Action1<Throwable>() {
+//                    @Override
+//                    public void call(Throwable throwable) {
+//                        System.out.println(throwable.toString());
+//                    }
+//                });
     }
 }

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bule_1">
+
+    <com.pupu.rushui.widget.MyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <include layout="@layout/layout_topbar" />
+
+            <RelativeLayout
+                android:id="@+id/layout_avatar"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center_horizontal">
+
+                <com.pupu.rushui.widget.RoundAngleImageView
+                    android:id="@+id/iv_avatar"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:src="@mipmap/img_avatar_default"
+                    app:ivRoundHeight="36dp"
+                    app:ivRoundWidth="36dp" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/img_camera" />
+            </RelativeLayout>
+
+            <Switch
+                android:id="@+id/sex_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/str_user"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/et_userName"
+                style="@style/MyEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:text="----"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_birth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/str_birth"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <com.pupu.rushui.widget.BirthView
+                android:id="@+id/birthView"
+                android:layout_width="match_parent"
+                android:layout_height="88dp"
+                android:layout_margin="16dp"></com.pupu.rushui.widget.BirthView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/str_weight"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <com.pupu.rushui.widget.RulerView
+                    android:id="@+id/ruler_weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:layout_marginTop="24dp"
+                    app:alphaEnable="true"
+                    app:lineColor="@color/white"
+                    app:lineMaxHeight="40dp"
+                    app:lineMidHeight="30dp"
+                    app:lineMinHeight="20dp"
+                    app:lineSpaceWidth="10dp"
+                    app:lineWidth="2dp"
+                    app:maxValue="120.0"
+                    app:minValue="35.0"
+                    app:perValue="1"
+                    app:selectorValue="165.0"
+                    app:textColor="@color/white" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="88dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="11dp"
+                    android:src="@mipmap/img_indicator" />
+
+                <TextView
+                    android:id="@+id/tv_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ruler_weight"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/str_weight_kg"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/str_height"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <com.pupu.rushui.widget.RulerView
+                    android:id="@+id/ruler_height"
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:layout_marginTop="24dp"
+                    app:alphaEnable="true"
+                    app:lineColor="@color/white"
+                    app:lineMaxHeight="40dp"
+                    app:lineMidHeight="30dp"
+                    app:lineMinHeight="20dp"
+                    app:lineSpaceWidth="10dp"
+                    app:lineWidth="2dp"
+                    app:maxValue="200.0"
+                    app:minValue="80.0"
+                    app:perValue="1"
+                    app:selectorValue="165.0"
+                    app:textColor="@color/white" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="88dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="11dp"
+                    android:src="@mipmap/img_indicator" />
+
+                <TextView
+                    android:id="@+id/tv_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ruler_height"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/str_height_cm"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <com.pupu.rushui.widget.LoadingButton
+                android:id="@+id/btn_ok"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_btn_round"
+                android:text="@string/str_ok"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </com.pupu.rushui.widget.MyScrollView>
+
+</android.support.constraint.ConstraintLayout>

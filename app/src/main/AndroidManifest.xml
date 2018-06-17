@@ -84,6 +84,15 @@
             android:name=".view.FuckAppActivity"
             android:screenOrientation="portrait"></activity>
         <activity
+            android:name=".view.MineActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".view.MineDetailActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
             android:name=".view.TestActivity"
             android:screenOrientation="portrait">
 
