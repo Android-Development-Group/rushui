@@ -92,6 +92,8 @@
             android:screenOrientation="portrait">
 
         </activity>
+        <activity android:name=".view.WhiteNoiseActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.TestActivity"
             android:screenOrientation="portrait">

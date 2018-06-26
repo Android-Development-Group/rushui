@@ -18,6 +18,7 @@ import com.pupu.rushui.R;
 import com.pupu.rushui.base.BaseActivity;
 import com.pupu.rushui.base.BasePresenter;
 import com.pupu.rushui.entity.AlarmTime;
+import com.pupu.rushui.entity.WhiteNoise;
 import com.pupu.rushui.util.CommonUtil;
 import com.pupu.rushui.util.DataPreference;
 
@@ -46,6 +47,7 @@ public class SettingActivity extends BaseActivity {
             switch (msg.what) {
                 case MSG_UPDATE_ALARM:
                     tv_alarm.setText(alarmTime.parseToTime());
+                    sb_alarm.setEnabled(true);
                     break;
                 default:
                     break;
@@ -78,8 +80,10 @@ public class SettingActivity extends BaseActivity {
         tv_title.setText(R.string.str_setting);
         if (alarmTime == null) {
             tv_alarm.setText(getString(R.string.str_notSet));
+            sb_alarm.setEnabled(false);
         } else {
             tv_alarm.setText(alarmTime.parseToTime());
+            sb_alarm.setEnabled(true);
         }
         sb_alarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -142,7 +146,7 @@ public class SettingActivity extends BaseActivity {
                 start2ActivityForResult(AlarmDetailActivity.class, alarmBundle, CODE_ALARM_DETAIL);
                 break;
             case R.id.layout_whiteNoise:
-
+                start2Activity(WhiteNoiseActivity.class);
                 break;
             case R.id.layout_about:
                 start2Activity(AboutActivity.class);

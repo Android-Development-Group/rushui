@@ -1,7 +1,9 @@
 package com.pupu.rushui.net;
 
+import com.pupu.rushui.base.CommonResponse;
 import com.pupu.rushui.entity.AlarmTime;
 import com.pupu.rushui.entity.UserInfo;
+import com.pupu.rushui.entity.WhiteNoise;
 
 import java.util.List;
 
@@ -24,6 +26,16 @@ public interface Api {
     @FormUrlEncoded
     @POST("app/mock/14802//example/1527583449656")
     Observable<ResponseBody> testNet(@Field("foo") String foo);
+
+    /**
+     * 获取白噪声列表
+     *
+     * @param userid
+     * @return
+     */
+    @FormUrlEncoded
+    @GET
+    Observable<CommonResponse<List<WhiteNoise>>> getWhiteNoiseList(@Field("userid") long userid);
 
     /**
      * 手机号登录
@@ -70,10 +82,4 @@ public interface Api {
      */
     Observable<ResponseBody> uploadAlarmList(int userID, String userToken, List<AlarmTime> alarmTimeList);
 
-    /**
-     * 获取闹钟列表
-     *
-     * @return
-     */
-    Observable<ResponseBody> getAlarmList();
 }

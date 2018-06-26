@@ -57,12 +57,12 @@
                 android:textSize="24sp" />
 
             <Switch
-                android:trackTint="@color/white"
-                android:thumbTint="@color/light_yellow"
                 android:id="@+id/sb_alarm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="16dp" />
+                android:layout_marginRight="16dp"
+                android:thumbTint="@color/light_yellow"
+                android:trackTint="@color/white" />
         </LinearLayout>
     </LinearLayout>
 
@@ -72,7 +72,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_layout"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="0dp"
@@ -103,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:layout_weight="1"
-            android:text="白噪声"
+            android:text="@string/str_whiteNoise"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
@@ -199,7 +200,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:layout_weight="1"
-            android:text="关于"
+            android:text="@string/str_about"
             android:textColor="@color/white"
             android:textSize="18sp" />
 

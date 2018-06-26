@@ -9,6 +9,7 @@ import com.pupu.rushui.app.MyApplication;
 import com.pupu.rushui.entity.AlarmTime;
 import com.pupu.rushui.entity.PhoneInfo;
 import com.pupu.rushui.entity.UserInfo;
+import com.pupu.rushui.entity.WhiteNoise;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -178,6 +179,40 @@ public class DataPreference {
             }.getType());
         }
         return list;
+    }
+
+    /**
+     * 获取本地白噪声数据
+     *
+     * @return
+     */
+    public static List<WhiteNoise> getWhiteNoiseList() {
+        List<WhiteNoise> list = null;
+        SharedPreferences preferences = MyApplication.getInstance()
+                .getSharedPreferences("whiteNoiseList", Context.MODE_PRIVATE);
+        String tmp = preferences.getString("jsonInfo", "");
+        if (!tmp.equals("")) {
+            Gson gson = new Gson();
+            list = gson.fromJson(tmp, new TypeToken<List<WhiteNoise>>() {
+            }.getType());
+        }
+        return list;
+    }
+
+    /**
+     * 设置本地白噪声数据
+     *
+     * @param list 白噪声列表
+     */
+    public static synchronized void setWhiteNoiseList(List<WhiteNoise> list) {
+        //转json
+        Gson gson = new Gson();
+        String tmp = gson.toJson(list);
+        SharedPreferences preferences = MyApplication.getInstance()
+                .getSharedPreferences("whiteNoiseList", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("jsonInfo", tmp);
+        editor.commit();
     }
 
 }

@@ -4,9 +4,6 @@ import com.pupu.rushui.R;
 import com.pupu.rushui.util.CommonUtil;
 import rx.Subscriber;
 
-/**
- * Created by fengyu on 2017/2/23.
- */
 public abstract class RequestCallback<T> extends Subscriber<T> {
     private static final String TAG = "RequestCallback";
 

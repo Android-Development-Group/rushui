@@ -2,7 +2,7 @@
     <string name="app_name">入睡</string>
     <string name="str_sleep">开始睡眠</string>
     <string name="str_setting">设置</string>
-    <string name="str_whiteNoise">白噪声</string>
+    <string name="str_whiteNoise">助眠声</string>
     <string name="str_about">关于</string>
     <string name="str_alarmClock">闹钟</string>
     <string name="str_startSleep">开始睡眠</string>
@@ -52,4 +52,6 @@
     <string name="str_weight_kg">%1$skg</string>
     <string name="str_height_cm">%1$scm</string>
     <string name="str_height">海拔</string>
+    <string name="str_email_addr">two_days@yeah.net</string>
+    <string name="hint_asmr">建议佩戴耳机享受ASMR</string>
 </resources>

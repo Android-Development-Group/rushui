@@ -9,6 +9,11 @@ public class ResponseError extends RuntimeException {
     private int status;
     private String message;
 
+    public ResponseError(String message) {
+        super(message);
+        this.message = message;
+    }
+
     public ResponseError(int status, String message) {
         this.status = status;
         this.message = message;

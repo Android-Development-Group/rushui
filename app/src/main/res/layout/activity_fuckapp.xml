@@ -19,6 +19,7 @@
         android:layout_height="128dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginTop="24dp"
         android:background="@null"
         android:gravity="start"
         android:hint="@string/hint_fuckApp"
@@ -39,5 +40,27 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@+id/et_fuckApp" />
+
+    <TextView
+        android:id="@+id/tv_fuckEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text="你还可以到这里吐槽："
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_ok" />
+
+    <TextView
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_fuckEmail"
+        app:layout_constraintLeft_toRightOf="@+id/tv_fuckEmail"
+        android:autoLink="email"
+        android:text="@string/str_email_addr"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </android.support.constraint.ConstraintLayout>
