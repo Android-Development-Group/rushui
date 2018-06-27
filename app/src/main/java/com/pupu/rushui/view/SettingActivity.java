@@ -121,9 +121,20 @@ public class SettingActivity extends BaseActivity {
 
     @OnClick({R.id.layout_clock, R.id.layout_whiteNoise,
             R.id.layout_zaoshui, R.id.layout_about, R.id.layout_fuckApp,
-            R.id.layout_markApp})
+            R.id.layout_markApp, R.id.layout_share})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.layout_share:
+                //分享图片，引流
+                Intent it = new Intent();
+                it.setAction(Intent.ACTION_SEND);
+                it.putExtra(Intent.EXTRA_STREAM, Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.mipmap.img_share));
+                it.setType("image/jpeg");
+//                it.setClassName("com.tencent.mm", "com.tencent.mm.ui.tools.ShareImgUI");//微信朋友
+//                it.setClassName("com.tencent.mobileqq", "com.tencent.mobileqq.activity.JumpActivity");//QQ好友或QQ群
+//                it.setClassName("com.tencent.mm", "com.tencent.mm.ui.tools.ShareToTimeLineUI");//微信朋友圈，仅支持分享图片
+                startActivity(Intent.createChooser(it, "繁杂世界，简单入睡"));
+                break;
             case R.id.layout_markApp:
                 try {
                     Uri uri = Uri.parse("market://details?id=" + getPackageName());
