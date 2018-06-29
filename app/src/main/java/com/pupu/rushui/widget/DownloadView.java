@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -69,6 +68,8 @@ public class DownloadView extends View {
         height = ta.getLayoutDimension(R.styleable.DownloadView_android_layout_height, 40);
         paint = new Paint();
         paint.setColor(0xffffffff);
+        //抗锯齿
+        paint.setAntiAlias(true);
 
         //初始化下载图片资源
         Bitmap originBm = BitmapFactory.decodeResource(getResources(), R.mipmap.img_download);

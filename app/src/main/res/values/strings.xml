@@ -9,7 +9,7 @@
     <string name="str_version">版本信息</string>
     <string name="str_slogen">入睡伴你入眠</string>
     <string name="str_stopSleep">上滑结束睡眠</string>
-    <string name="str_sleepResult">睡眠评估</string>
+    <string name="str_sleepResult">入睡数据</string>
     <string name="str_ok">完成</string>
     <string name="str_wakeup">闹钟响了</string>
     <string name="toast_phonenum_null">手机号为空</string>
@@ -18,7 +18,7 @@
     <string name="toast_server_err">服务器错误</string>
     <string name="str_markApp">给入睡打分</string>
     <string name="str_fuckApp">吐槽入睡</string>
-    <string name="str_alarmRemind">大概在%1$d小时后唤醒</string>
+    <string name="str_alarmRemind">大概在%1$s小时后唤醒</string>
     <string name="str_notSet">未设置</string>
     <string name="str_slideDown">下滑小睡一会</string>
     <string name="str_share">分享</string>
@@ -54,4 +54,5 @@
     <string name="str_height">海拔</string>
     <string name="str_email_addr">two_days@yeah.net</string>
     <string name="hint_asmr">建议佩戴耳机享受ASMR</string>
+    <string name="str_sleepDuration">共%1$sh%2$sm</string>
 </resources>

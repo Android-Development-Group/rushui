@@ -7,13 +7,15 @@ import com.pupu.rushui.entity.WhiteNoise;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -22,6 +24,18 @@ import rx.Observable;
  */
 
 public interface Api {
+
+    /**
+     * 上传用户头像
+     *
+     * @param userid
+     * @param avatarImg
+     * @return
+     */
+    @FormUrlEncoded
+    @Multipart
+    @POST
+    Observable<ResponseBody> uploadAvatar(@Query("userid") long userid, @Part MultipartBody.Part avatarImg);
 
     @FormUrlEncoded
     @POST("app/mock/14802//example/1527583449656")
