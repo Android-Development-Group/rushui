@@ -60,8 +60,8 @@ public class SleepResultActivity extends BaseActivity {
         int endHour = sleepData.getEndTime().getHours();
         int endMin = sleepData.getEndTime().getMinutes();
         AlarmTime endTime = new AlarmTime();
-        endTime.setHour24(startHour);
-        endTime.setMinute(startMin);
+        endTime.setHour24(endHour);
+        endTime.setMinute(endMin);
         tv_endTime.setText(endTime.parseToTime());
 
         //计算睡眠时长
