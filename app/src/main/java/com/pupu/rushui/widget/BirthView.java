@@ -134,7 +134,7 @@ public class BirthView extends RelativeLayout {
         wv_month.setItems(months);
         wv_day.setItems(days);
         //1994
-        wv_year.setSeletion(17);
+        wv_year.setSeletion(45);
         yearSel = "1994";
         //10
         wv_month.setSeletion(9);

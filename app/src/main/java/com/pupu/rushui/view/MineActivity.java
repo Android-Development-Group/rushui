@@ -34,12 +34,16 @@ public class MineActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.layout_mineDetail})
+    @OnClick({R.id.layout_mineDetail, R.id.layout_sleepData})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.layout_sleepData:
+                start2Activity(SleepListActivity.class);
+                break;
             case R.id.layout_mineDetail:
                 start2Activity(MineDetailActivity.class);
                 break;
+
         }
     }
 }

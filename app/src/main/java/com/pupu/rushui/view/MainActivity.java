@@ -19,6 +19,7 @@ import com.pupu.rushui.R;
 import com.pupu.rushui.base.BaseActivity;
 import com.pupu.rushui.contract.MainContract;
 import com.pupu.rushui.entity.AlarmTime;
+import com.pupu.rushui.entity.SleepData;
 import com.pupu.rushui.presenter.MainPresenter;
 import com.pupu.rushui.service.SleepService;
 import com.pupu.rushui.util.Logger;
@@ -29,6 +30,7 @@ import com.pupu.rushui.widget.TimeDiskView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -53,6 +55,11 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     TimeDiskView tdv;
     @BindView(R.id.tv_remind)
     TextView tv_remind;
+
+    /**
+     * 本次睡眠数据
+     */
+    SleepData sleepData;
 
     /**
      * 播放助眠音乐的player
@@ -121,6 +128,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     protected void initData() {
+        sleepData = new SleepData();
     }
 
     @OnClick({R.id.btn_startSleep, R.id.iv_mine, R.id.iv_setting})
@@ -131,7 +139,8 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 break;
             case R.id.iv_mine:
                 if (getPresenter().checkIsLogined()) {
-                  start2Activity(MineActivity.class);
+                    start2Activity(MineActivity.class);
+                    overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                 } else {
                     start2Activity(LoginRegisterActivity.class);
                     overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
@@ -139,6 +148,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 break;
             case R.id.iv_setting:
                 start2Activity(SettingActivity.class);
+                overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                 break;
             default:
                 break;
@@ -191,6 +201,10 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     public void startSleep(AlarmTime alarmTime) {
+        if (sleepData == null) {
+            sleepData = new SleepData();
+        }
+        sleepData.setStartTime(new Date());
         //隐藏底部三个按钮
         btn_startSleep.clearAnimation();
         Animation alphaAnim = new AlphaAnimation(1f, 0f);
@@ -274,7 +288,10 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     @Override
     public void stopSleep() {
         preSleep();
-        start2Activity(SleepResultActivity.class);
+        sleepData.setEndTime(new Date());
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("sleepData", sleepData);
+        start2Activity(SleepResultActivity.class, bundle);
         //停止播放
         stopPlay();
     }

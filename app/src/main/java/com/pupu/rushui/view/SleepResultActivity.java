@@ -2,6 +2,7 @@ package com.pupu.rushui.view;
 
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pupu.rushui.R;
@@ -30,6 +31,10 @@ public class SleepResultActivity extends BaseActivity {
     TextView tv_duration;
     @BindView(R.id.fab_share)
     FloatingActionButton fab_share;
+    @BindView(R.id.tv_tooShort)
+    TextView tv_tooShort;
+    @BindView(R.id.layout_sleepTime)
+    View layout_sleepTime;
 
     /**
      * 睡眠数据
@@ -65,9 +70,17 @@ public class SleepResultActivity extends BaseActivity {
         tv_endTime.setText(endTime.parseToTime());
 
         //计算睡眠时长
-        tv_duration.setText(
-                String.format(getString(R.string.str_sleepDuration), "" + TimeUtil.caculateDuration(startTime, endTime)[0], "" + TimeUtil.caculateDuration(startTime, endTime)[1])
-        );
+        //睡眠时长过短需要提示
+        if (TimeUtil.caculateDuration(startTime, endTime)[0] == 0 &&
+                TimeUtil.caculateDuration(startTime, endTime)[1] < 10) {
+            tv_tooShort.setVisibility(View.VISIBLE);
+            layout_sleepTime.setVisibility(View.GONE);
+            fab_share.setVisibility(View.GONE);
+        } else {
+            tv_duration.setText(
+                    String.format(getString(R.string.str_sleepDuration), "" + TimeUtil.caculateDuration(startTime, endTime)[0], "" + TimeUtil.caculateDuration(startTime, endTime)[1])
+            );
+        }
 
     }
 

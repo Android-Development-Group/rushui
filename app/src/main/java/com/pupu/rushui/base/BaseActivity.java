@@ -95,6 +95,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     public void start2Activity(Class clazz) {
         Intent it = new Intent(this, clazz);
         startActivity(it);
+        overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
     }
 
     /**
@@ -108,6 +109,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             it.putExtras(bundle);
         }
         startActivity(it);
+        overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
     }
 
     /**
@@ -123,6 +125,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             it.putExtras(bundle);
         }
         startActivityForResult(it, code);
+        overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
     }
 
     @Override
@@ -139,5 +142,11 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @OnClick(R.id.iv_close)
     public void onBackClicked(View view) {
         finish();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
     }
 }
