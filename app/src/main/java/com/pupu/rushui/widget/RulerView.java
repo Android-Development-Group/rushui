@@ -15,6 +15,7 @@ import android.widget.Scroller;
 
 import com.pupu.rushui.R;
 import com.pupu.rushui.util.CommonUtil;
+import com.pupu.rushui.util.Logger;
 
 
 public class RulerView extends View {
@@ -230,13 +231,13 @@ public class RulerView extends View {
         }
     }
 
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.d("zkk---", "onTouchEvent-");
-
         int action = event.getAction();
         int xPosition = (int) event.getX();
-
+        int yPosition = (int) event.getY();
         if (mVelocityTracker == null) {
             mVelocityTracker = VelocityTracker.obtain();
         }

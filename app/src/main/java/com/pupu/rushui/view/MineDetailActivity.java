@@ -1,6 +1,7 @@
 package com.pupu.rushui.view;
 
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,11 +14,14 @@ import com.pupu.rushui.util.CommonUtil;
 import com.pupu.rushui.util.DataPreference;
 import com.pupu.rushui.util.Logger;
 import com.pupu.rushui.widget.BirthView;
+import com.pupu.rushui.widget.LoadingButton;
 import com.pupu.rushui.widget.RulerView;
+import com.pupu.rushui.widget.SexSwitch;
 
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -45,6 +49,18 @@ public class MineDetailActivity extends BaseActivity {
     @BindView(R.id.birthView)
     BirthView birthView;
 
+    /**
+     * 確定按鈕
+     */
+    @BindView(R.id.btn_ok)
+    LoadingButton btn_ok;
+
+    /**
+     * 性别选择器
+     */
+    @BindView(R.id.sex_switch)
+    SexSwitch sex_switch;
+
     UserInfo userInfo;
 
     @Override
@@ -60,6 +76,18 @@ public class MineDetailActivity extends BaseActivity {
     @Override
     protected void initView() {
         tv_title.setText(R.string.str_mine);
+        sex_switch.setOnCheckedChangeListener(new SexSwitch.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChange(boolean flag) {
+                if (flag == true) {
+                    //woman
+
+                } else {
+                    //man
+
+                }
+            }
+        });
         ruler_height.setOnValueChangeListener(new RulerView.OnValueChangeListener() {
             @Override
             public void onValueChange(final float value) {
@@ -123,11 +151,28 @@ public class MineDetailActivity extends BaseActivity {
         tv_height.setText(String.format(getString(R.string.str_height_cm), "172"));
         tv_weight.setText(String.format(getString(R.string.str_weight_kg), "60"));
 
+        if (TextUtils.isEmpty(userInfo.getUserName())) {
+            et_userName.setText(getString(R.string.str_notSet));
+        } else {
+            et_userName.setText(userInfo.getUserName());
+        }
+
     }
 
     @Override
     protected void initData() {
         //获取本地用户信息
         userInfo = DataPreference.getUserInfo();
+    }
+
+    /**
+     * 保存个人信息
+     *
+     * @param view
+     */
+    @OnClick(R.id.btn_ok)
+    public void onOkClicked(View view) {
+        //请求网络
+        btn_ok.startLoading();
     }
 }
