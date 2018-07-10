@@ -38,5 +38,6 @@ ext {
             appcompat       : 'com.android.support:appcompat-v7:26.1.0',
             butterknife     : 'com.jakewharton:butterknife:8.4.0',
             rxadapter       : 'com.squareup.retrofit2:adapter-rxjava:2.3.0',
+            okhttplogger    : 'com.squareup.okhttp3:logging-interceptor:3.4.1',
     ]
 }

@@ -2,13 +2,17 @@ package com.pupu.rushui.net;
 
 import com.pupu.rushui.base.CommonResponse;
 import com.pupu.rushui.entity.AlarmTime;
+import com.pupu.rushui.entity.SleepData;
 import com.pupu.rushui.entity.UserInfo;
 import com.pupu.rushui.entity.WhiteNoise;
+import com.pupu.rushui.net.bean.BaseResponse;
+import com.pupu.rushui.net.bean.UploadSleepDataRequest;
 
 import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -25,75 +29,81 @@ import rx.Observable;
 
 public interface Api {
 
+
     /**
-     * 上传用户头像
+     * 请求验证码
      *
-     * @param userid
-     * @param avatarImg
+     * @param phoneNum 手机号
      * @return
      */
-    @FormUrlEncoded
-    @Multipart
-    @POST
-    Observable<ResponseBody> uploadAvatar(@Query("userid") long userid, @Part MultipartBody.Part avatarImg);
+    @GET(NetAction.REQUEST_SMS_CODE)
+    Observable<BaseResponse<String>> requestSMSCode(@Query("phoneNum") String phoneNum);
 
-    @FormUrlEncoded
-    @POST("app/mock/14802//example/1527583449656")
-    Observable<ResponseBody> testNet(@Field("foo") String foo);
+    /**
+     * 验证验证码
+     *
+     * @param phoneNum 手机号
+     * @param smsCode  验证码
+     * @return
+     */
+    @GET(NetAction.VERIFY_SMS_CODE)
+    Observable<BaseResponse> verifySMSCode(@Query("phoneNum") String phoneNum, @Query("smsCode") String smsCode);
+
+    /**
+     * 请求广告
+     *
+     * @param userid 用户id
+     * @return
+     */
+    @GET(NetAction.REQUEST_AD)
+    Observable<BaseResponse<String>> requestAD(@Query("userid") Long userid);
+
+    /**
+     * 获取用户信息
+     *
+     * @param userid 用户id
+     * @return
+     */
+    @GET(NetAction.REQUEST_USER)
+    Observable<BaseResponse<UserInfo>> requestUser(@Query("userid") Long userid);
 
     /**
      * 获取白噪声列表
      *
-     * @param userid
+     * @param userid 用户id
      * @return
      */
-    @FormUrlEncoded
-    @GET
-    Observable<CommonResponse<List<WhiteNoise>>> getWhiteNoiseList(@Field("userid") long userid);
+    @GET(NetAction.REQUEST_WHITE_NOISE_LIST)
+    Observable<BaseResponse<List<WhiteNoise>>> requestWhiteNoiseList(@Query("userid") Long userid);
 
     /**
-     * 手机号登录
+     * 反馈
      *
-     * @param phoneNum 用户名（手机号）
+     * @param userid  用户id
+     * @param device  用户设备名称
+     * @param content 反馈内容
      * @return
      */
-    @POST(NetAction.LOGIN_REGISTER)
-    Observable<UserInfo> loginByPhoneNum(String phoneNum);
+    @GET(NetAction.REQUEST_FEED_BACK)
+    Observable<BaseResponse<String>> requestFeedBack(@Query("userid") Long userid, @Query("device") String device, @Query("content") String content);
 
     /**
-     * 手机号请求注册，服务器发送验证码
+     * 获取睡眠数据
      *
-     * @param phoneNum 手机号
+     * @param userid 用户id
+     * @param dataid 睡眠数据id
+     * @param size   指定拉取条数
      * @return
      */
-    Observable<ResponseBody> registerByPhoneNum(String phoneNum);
+    @GET(NetAction.REQUEST_SLEEP_DATA_LIST)
+    Observable<BaseResponse<List<SleepData>>> requestSleepDataList(@Query("userid") Long userid, @Query("dataid") String dataid, @Query("size") int size);
 
     /**
-     * 请求校验短信验证码
+     * 上传睡眠数据列表
      *
-     * @param phoneNum 手机号
-     * @param smsCode  短信验证码
+     * @param request 上传请求体
      * @return
      */
-    @POST(NetAction.VERIFY_CODE)
-    Observable<UserInfo> verifySMSCode(String phoneNum, String smsCode);
-
-    /**
-     * 上传&更新用户信息
-     *
-     * @param userInfo
-     * @return
-     */
-    Observable<ResponseBody> uploadUserInfo(UserInfo userInfo);
-
-    /**
-     * 上传用户闹钟列表
-     *
-     * @param userID        用户id
-     * @param userToken     登录的token
-     * @param alarmTimeList 闹钟列表
-     * @return
-     */
-    Observable<ResponseBody> uploadAlarmList(int userID, String userToken, List<AlarmTime> alarmTimeList);
-
+    @POST(NetAction.UPLOAD_SLEEP_DATA_LIST)
+    Observable<BaseResponse<String>> uploadSleepDataList(@Body UploadSleepDataRequest request);
 }

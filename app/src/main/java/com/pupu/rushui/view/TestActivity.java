@@ -13,6 +13,8 @@ import com.pupu.rushui.net.ApiClient;
 import com.pupu.rushui.util.Logger;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -83,17 +85,18 @@ public class TestActivity extends BaseActivity {
 //            }
 //        });
 
-//        ApiClient.getInstance().getApi().testNet("@ctitle")
+//        String request = "";
+//        try {
+//            request = URLEncoder.encode("草泥马", "utf-8");
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//        ApiClient.getInstance().getApi().testNest(request)
 //                .subscribeOn(Schedulers.io())
 //                .observeOn(Schedulers.io())
 //                .subscribe(new Action1<ResponseBody>() {
 //                    @Override
 //                    public void call(ResponseBody responseBody) {
-//                        try {
-//                            System.out.println(responseBody.string());
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
 //                    }
 //                }, new Action1<Throwable>() {
 //                    @Override

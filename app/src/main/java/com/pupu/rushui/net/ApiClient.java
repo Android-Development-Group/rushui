@@ -1,10 +1,12 @@
 package com.pupu.rushui.net;
 
+import com.pupu.rushui.BuildConfig;
 import com.pupu.rushui.common.Constant;
 
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -41,6 +43,11 @@ public class ApiClient {
         builder.connectTimeout(Constant.CONNECT_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
         builder.readTimeout(Constant.READ_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
 
+        //添加请求拦截器
+        builder.addInterceptor(new RushuiInterceptor());
+        if (BuildConfig.DEBUG) {
+            builder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
+        }
         Retrofit asyncRetrofit = new Retrofit.Builder()
                 .client(builder.build())
                 .addConverterFactory(GsonConverterFactory.create())

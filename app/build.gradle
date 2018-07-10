@@ -62,6 +62,7 @@ dependencies {
     api common.retrofit2gson
     api common.retrofit2
     api common.okhttp
+    api common.okhttplogger
     api common.gson
     api common.recyclerview
     api common.cardview

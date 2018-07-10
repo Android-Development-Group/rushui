@@ -5,6 +5,20 @@ package com.pupu.rushui.net;
  */
 
 public interface NetAction {
-    String LOGIN_REGISTER = "xxx";
-    String VERIFY_CODE = "xxx";
+
+    String REQUEST_SMS_CODE = "/smsCode";
+
+    String VERIFY_SMS_CODE = "/smsCodeVerify";
+
+    String REQUEST_AD = "/ad";
+
+    String REQUEST_USER = "/user";
+
+    String REQUEST_WHITE_NOISE_LIST = "/whiteNoise";
+
+    String REQUEST_FEED_BACK = "/feedBack";
+
+    String REQUEST_SLEEP_DATA_LIST = "/sleepData";
+
+    String UPLOAD_SLEEP_DATA_LIST = "/uploadSleepData";
 }

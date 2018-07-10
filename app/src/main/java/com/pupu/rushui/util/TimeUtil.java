@@ -2,6 +2,9 @@ package com.pupu.rushui.util;
 
 import com.pupu.rushui.entity.AlarmTime;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by pupu on 2018/6/29.
  * 时间管理计算等工具类
@@ -11,6 +14,20 @@ public class TimeUtil {
 
     private TimeUtil() {
         throw new UnsupportedOperationException();
+    }
+
+    /**
+     * 格式化日期为yyyy-MM-dd-HH-mm-ss
+     *
+     * @param date 指定日期
+     * @return 格式化后的字符串
+     */
+    public static String formatDate(Date date) {
+        if (date == null) {
+            return "";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        return sdf.format(date);
     }
 
     /**
