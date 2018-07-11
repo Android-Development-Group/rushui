@@ -5,6 +5,7 @@ import com.pupu.rushui.entity.SleepData;
 import com.pupu.rushui.entity.UserInfo;
 import com.pupu.rushui.entity.WhiteNoise;
 import com.pupu.rushui.net.ApiClient;
+import com.pupu.rushui.net.bean.BaseResponse;
 
 import org.junit.Test;
 
@@ -99,27 +100,10 @@ public class ExampleUnitTest {
 
     @Test
     public void testNet() {
-        ApiClient.getInstance().getApi().testNet("@ctitle")
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe(new Action1<ResponseBody>() {
-                    @Override
-                    public void call(ResponseBody responseBody) {
-                        try {
-                            System.out.println(responseBody.string());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        System.out.println(throwable.toString());
-                    }
-                });
+//        Call<BaseResponse<String>> call1 = ApiClient.getInstance().getApi().requestSMSCode("12323332333");
 //        try {
-//            Response<ResponseBody> response = call.execute();
-//            System.out.println(response.body().string());
+//            Response<BaseResponse<String>> response1 = call1.execute();
+//            System.out.println(response1.body());
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
@@ -152,7 +136,7 @@ public class ExampleUnitTest {
 
         List<WhiteNoise> whiteNoiseList = new ArrayList<>();
         WhiteNoise whiteNoise = new WhiteNoise();
-        whiteNoise.setId(1);
+        whiteNoise.setId(1l);
         whiteNoise.setName("篝火");
         whiteNoise.setUrl("xxxxx");
 //        whiteNoise.setLocalUrl("xxxx");
@@ -173,6 +157,10 @@ public class ExampleUnitTest {
         sleepDataList.add(sleepData);
         sleepDataList.add(sleepData);
         System.out.println(gson.toJson(sleepDataList));
-    }
 
+        BaseResponse<String> response = new BaseResponse<>();
+        response.setResponse_code("200");
+        response.setResponse_data(new String("12323332333"));
+        System.out.println(gson.toJson(response));
+    }
 }

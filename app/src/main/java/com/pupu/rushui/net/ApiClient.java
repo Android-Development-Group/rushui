@@ -50,7 +50,7 @@ public class ApiClient {
         }
         Retrofit asyncRetrofit = new Retrofit.Builder()
                 .client(builder.build())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(UrlEncodeGsonConvertFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(Constant.BASE_URL)
                 .build();

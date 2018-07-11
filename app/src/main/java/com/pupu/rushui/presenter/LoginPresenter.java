@@ -5,6 +5,8 @@ import com.pupu.rushui.contract.LoginContract;
 import com.pupu.rushui.datasource.RushuiDataSource;
 import com.pupu.rushui.entity.UserInfo;
 import com.pupu.rushui.net.ApiClient;
+import com.pupu.rushui.net.BaseResponseFunc;
+import com.pupu.rushui.net.bean.BaseResponse;
 import com.pupu.rushui.util.DataPreference;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -43,23 +45,22 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void loginByPhoneNum(String phoneNum) {
-        ApiClient.getInstance().getApi().loginByPhoneNum(phoneNum)
+        ApiClient.getInstance().getApi().requestSMSCode(phoneNum)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<UserInfo>() {
+                .map(new BaseResponseFunc<String>())
+                .subscribe(new Action1<String>() {
                     @Override
-                    public void call(UserInfo userInfo) {
+                    public void call(String s) {
                         if (view != null) {
-                            //本地存储
-                            dataSource.setUserInfo(userInfo);
                             view.onSuccess();
                         }
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
+                        throwable.printStackTrace();
                         if (view != null) {
-                            //提示出错
                             view.onFailed(throwable.getMessage());
                         }
                     }
@@ -71,17 +72,20 @@ public class LoginPresenter implements LoginContract.Presenter {
         ApiClient.getInstance().getApi().verifySMSCode(phoneNum, code)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<UserInfo>() {
+                .map(new BaseResponseFunc<String>())
+                .subscribe(new Action1<String>() {
                     @Override
-                    public void call(UserInfo userInfo) {
+                    public void call(String s) {
                         if (view != null) {
-                            dataSource.setUserInfo(userInfo);
                             view.onSuccess();
                         }
+                        //上传本地用户信息
+
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
+                        throwable.printStackTrace();
                         if (view != null) {
                             view.onFailed(throwable.getMessage());
                         }

@@ -109,7 +109,7 @@ public class PhoneNumFragment extends BaseFragment<LoginContract.Presenter> impl
                                 onSuccess();
                             }
                         });
-//                getPresenter().loginByPhoneNum(phoneNum);
+                getPresenter().loginByPhoneNum(phoneNum);
                 break;
             case R.id.tv_prePhoneNum:
 

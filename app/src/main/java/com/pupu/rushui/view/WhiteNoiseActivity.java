@@ -142,26 +142,26 @@ public class WhiteNoiseActivity extends BaseActivity {
      * 请求网络
      */
     private void requestNet() {
-        ApiClient.getInstance().getApi()
-                .getWhiteNoiseList(666)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(new CommonResponseFunc<List<WhiteNoise>>())
-                .subscribe(new Action1<List<WhiteNoise>>() {
-                    @Override
-                    public void call(List<WhiteNoise> whiteNoises) {
-                        mDatas.clear();
-                        mDatas.addAll(whiteNoises);
-                        adapter.notifyDataSetChanged();
-                        layout_refresh.setRefreshing(false);
-                        rv_whiteNoise.setEnabled(true);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-
-                    }
-                });
+//        ApiClient.getInstance().getApi()
+//                .getWhiteNoiseList(666)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .map(new CommonResponseFunc<List<WhiteNoise>>())
+//                .subscribe(new Action1<List<WhiteNoise>>() {
+//                    @Override
+//                    public void call(List<WhiteNoise> whiteNoises) {
+//                        mDatas.clear();
+//                        mDatas.addAll(whiteNoises);
+//                        adapter.notifyDataSetChanged();
+//                        layout_refresh.setRefreshing(false);
+//                        rv_whiteNoise.setEnabled(true);
+//                    }
+//                }, new Action1<Throwable>() {
+//                    @Override
+//                    public void call(Throwable throwable) {
+//
+//                    }
+//                });
     }
 
     /**

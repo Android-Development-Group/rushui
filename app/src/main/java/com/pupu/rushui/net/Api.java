@@ -1,7 +1,5 @@
 package com.pupu.rushui.net;
 
-import com.pupu.rushui.base.CommonResponse;
-import com.pupu.rushui.entity.AlarmTime;
 import com.pupu.rushui.entity.SleepData;
 import com.pupu.rushui.entity.UserInfo;
 import com.pupu.rushui.entity.WhiteNoise;
@@ -10,15 +8,10 @@ import com.pupu.rushui.net.bean.UploadSleepDataRequest;
 
 import java.util.List;
 
-import okhttp3.MultipartBody;
-import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -36,6 +29,7 @@ public interface Api {
      * @param phoneNum 手机号
      * @return
      */
+    //    @GET("http://rap2api.taobao.org/app/mock/14802//rushui/requestSMSCode")
     @GET(NetAction.REQUEST_SMS_CODE)
     Observable<BaseResponse<String>> requestSMSCode(@Query("phoneNum") String phoneNum);
 
@@ -47,7 +41,7 @@ public interface Api {
      * @return
      */
     @GET(NetAction.VERIFY_SMS_CODE)
-    Observable<BaseResponse> verifySMSCode(@Query("phoneNum") String phoneNum, @Query("smsCode") String smsCode);
+    Observable<BaseResponse<String>> verifySMSCode(@Query("phoneNum") String phoneNum, @Query("smsCode") String smsCode);
 
     /**
      * 请求广告

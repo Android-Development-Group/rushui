@@ -41,9 +41,9 @@ public class RushuiInterceptor implements Interceptor {
         Request original = chain.request();
         //添加请求头
         Request.Builder requestBuilder = original.newBuilder();
-        if (DataPreference.getUserInfo() != null && DataPreference.getUserInfo().getUserToken() != null) {
-            requestBuilder.addHeader(AUTHORIZATION, DataPreference.getUserInfo().getUserToken());
-        }
+//        if (DataPreference.getUserInfo() != null && DataPreference.getUserInfo().getUserToken() != null) {
+//            requestBuilder.addHeader(AUTHORIZATION, DataPreference.getUserInfo().getUserToken());
+//        }
         requestBuilder.addHeader(TIMESTAMP, TimeUtil.formatDate(new Date()));
         requestBuilder.addHeader(SIGN, "");
         Request request = requestBuilder.build();

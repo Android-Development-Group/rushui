@@ -60,49 +60,6 @@ public class TestActivity extends BaseActivity {
     }
 
     public void test() {
-//        Call<ResponseBody> call = ApiClient.getInstance().getApi().testNet("xxx");
-//        Logger.i("pupu", call.request().body().toString());
-//        try {
-//            Response<ResponseBody> response = call.execute();
-//            System.out.println(response.body().string());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        call.enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                try {
-//                    Logger.i("pupu", response.body().string());
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                t.printStackTrace();
-//            }
-//        });
 
-//        String request = "";
-//        try {
-//            request = URLEncoder.encode("草泥马", "utf-8");
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//        ApiClient.getInstance().getApi().testNest(request)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(Schedulers.io())
-//                .subscribe(new Action1<ResponseBody>() {
-//                    @Override
-//                    public void call(ResponseBody responseBody) {
-//                    }
-//                }, new Action1<Throwable>() {
-//                    @Override
-//                    public void call(Throwable throwable) {
-//                        System.out.println(throwable.toString());
-//                    }
-//                });
     }
 }
