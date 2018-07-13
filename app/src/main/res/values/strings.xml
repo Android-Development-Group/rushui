@@ -56,4 +56,6 @@
     <string name="hint_asmr">建议佩戴耳机享受ASMR</string>
     <string name="str_sleepDuration">共%1$sh%2$sm</string>
     <string name="str_sleepData">睡过的</string>
+    <string name="str_say_something">你还什么都没说呢</string>
+    <string name="str_feedback_success">感谢反馈</string>
 </resources>

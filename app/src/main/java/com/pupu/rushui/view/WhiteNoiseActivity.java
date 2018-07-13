@@ -10,9 +10,12 @@ import com.pupu.rushui.R;
 import com.pupu.rushui.adapter.WhiteNoiseRvAdapter;
 import com.pupu.rushui.base.BaseActivity;
 import com.pupu.rushui.base.BasePresenter;
-import com.pupu.rushui.base.CommonResponseFunc;
+import com.pupu.rushui.entity.UserInfo;
 import com.pupu.rushui.entity.WhiteNoise;
 import com.pupu.rushui.net.ApiClient;
+import com.pupu.rushui.net.BaseResponseFunc;
+import com.pupu.rushui.net.bean.BaseResponse;
+import com.pupu.rushui.util.CommonUtil;
 import com.pupu.rushui.util.DataPreference;
 import com.pupu.rushui.util.PlayUtils;
 
@@ -40,6 +43,11 @@ public class WhiteNoiseActivity extends BaseActivity {
     WhiteNoiseRvAdapter adapter;
     List<WhiteNoise> mDatas;
 
+    /**
+     * 本地用户信息
+     */
+    UserInfo userInfo;
+
     @Override
     protected int setLayoutResourceID() {
         return R.layout.activity_whitenoise;
@@ -59,7 +67,7 @@ public class WhiteNoiseActivity extends BaseActivity {
             @Override
             public void onRefresh() {
                 //请求服务器刷新列表
-//                requestNet();
+                requestNet();
                 //设置列表不可点击
                 rv_whiteNoise.setEnabled(false);
             }
@@ -68,6 +76,9 @@ public class WhiteNoiseActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+
+        userInfo = DataPreference.getUserInfo();
+
         mDatas = new ArrayList<>();
         adapter = new WhiteNoiseRvAdapter(this, mDatas);
         rv_whiteNoise.setLayoutManager(new LinearLayoutManager(this));
@@ -76,8 +87,8 @@ public class WhiteNoiseActivity extends BaseActivity {
         List<WhiteNoise> whiteNoiseList = DataPreference.getWhiteNoiseList();
         if (whiteNoiseList == null) {
             //请求网络
-            localDataTest();
-//            requestNet();
+            layout_refresh.setRefreshing(true);
+            requestNet();
         } else {
             //显示
             mDatas.addAll(whiteNoiseList);
@@ -105,7 +116,7 @@ public class WhiteNoiseActivity extends BaseActivity {
 
                 } else if (mDatas.get(position).getState() == WhiteNoise.STATE_NO_DOWNLOADED) {
                     //去下载
-//                    downloadVoice(mDatas.get(position).getUrl());
+                    downloadVoice(mDatas.get(position).getUrl());
                     mDatas.get(position).setState(WhiteNoise.STATE_DOWNLOADING);
                 }
                 //刷新列表
@@ -142,26 +153,32 @@ public class WhiteNoiseActivity extends BaseActivity {
      * 请求网络
      */
     private void requestNet() {
-//        ApiClient.getInstance().getApi()
-//                .getWhiteNoiseList(666)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .map(new CommonResponseFunc<List<WhiteNoise>>())
-//                .subscribe(new Action1<List<WhiteNoise>>() {
-//                    @Override
-//                    public void call(List<WhiteNoise> whiteNoises) {
-//                        mDatas.clear();
-//                        mDatas.addAll(whiteNoises);
-//                        adapter.notifyDataSetChanged();
-//                        layout_refresh.setRefreshing(false);
-//                        rv_whiteNoise.setEnabled(true);
-//                    }
-//                }, new Action1<Throwable>() {
-//                    @Override
-//                    public void call(Throwable throwable) {
-//
-//                    }
-//                });
+        ApiClient.getInstance().getApi().requestWhiteNoiseList(
+                userInfo == null ? 0l : userInfo.getUserId()
+        )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new BaseResponseFunc<List<WhiteNoise>>())
+                .subscribe(new Action1<List<WhiteNoise>>() {
+                    @Override
+                    public void call(List<WhiteNoise> whiteNoises) {
+                        //显示白噪声
+                        mDatas.clear();
+                        mDatas.addAll(whiteNoises);
+                        //刷新列表
+                        adapter.notifyDataSetChanged();
+                        if (layout_refresh.isRefreshing()) {
+                            layout_refresh.setRefreshing(false);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        throwable.printStackTrace();
+                        //请求失败
+                        CommonUtil.showToast(throwable.getMessage());
+                    }
+                });
     }
 
     /**

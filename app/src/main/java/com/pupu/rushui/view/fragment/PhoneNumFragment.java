@@ -53,7 +53,6 @@ public class PhoneNumFragment extends BaseFragment<LoginContract.Presenter> impl
     @Override
     protected void initAllViewMembers(Bundle savedInstanceState) {
         et_phoneNum.clearFocus();
-//        et_phoneNum.requestFocus();
         CommonUtil.showSoftKeyboard(et_phoneNum);
     }
 
@@ -100,15 +99,6 @@ public class PhoneNumFragment extends BaseFragment<LoginContract.Presenter> impl
                 }
                 btn_login.setEnabled(false);
                 btn_login.startLoading();
-                rx.Observable.timer(3, TimeUnit.SECONDS)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Action1<Long>() {
-                            @Override
-                            public void call(Long aLong) {
-                                onSuccess();
-                            }
-                        });
                 getPresenter().loginByPhoneNum(phoneNum);
                 break;
             case R.id.tv_prePhoneNum:

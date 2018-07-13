@@ -3,11 +3,8 @@ package com.pupu.rushui.presenter;
 import com.pupu.rushui.base.BaseView;
 import com.pupu.rushui.contract.LoginContract;
 import com.pupu.rushui.datasource.RushuiDataSource;
-import com.pupu.rushui.entity.UserInfo;
 import com.pupu.rushui.net.ApiClient;
 import com.pupu.rushui.net.BaseResponseFunc;
-import com.pupu.rushui.net.bean.BaseResponse;
-import com.pupu.rushui.util.DataPreference;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;

@@ -21,4 +21,6 @@ public interface NetAction {
     String REQUEST_SLEEP_DATA_LIST = "/sleepData";
 
     String UPLOAD_SLEEP_DATA_LIST = "/uploadSleepData";
+
+    String UPLOAD_USER_INFO = "/userRequest";
 }

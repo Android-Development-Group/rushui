@@ -1,6 +1,7 @@
 package com.pupu.rushui.view.fragment;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.OnClick;
 import rx.Observable;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -113,58 +115,40 @@ public class VerifyCodeFragment extends BaseFragment<LoginContract.Presenter> im
                 }
                 btn_request.setEnabled(false);
                 btn_request.startLoading();
-                Observable.timer(3, TimeUnit.SECONDS)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Action1<Long>() {
-                            @Override
-                            public void call(Long aLong) {
-                                UserInfo userInfo = new UserInfo();
-                                userInfo.setUserToken("xxxx");
-                                userInfo.setUserName("xxx");
-                                userInfo.setSex("man");
-                                userInfo.setPhoneNum("12323332333");
-                                userInfo.setWeight(60);
-                                userInfo.setHeight(172);
-                                userInfo.setUserId(13);
-                                DataPreference.setUserInfo(userInfo);
-                                onSuccess();
-                            }
-                        });
-//                getPresenter().verifyCode(phoneNum, code);
+                getPresenter().verifyCode(phoneNum, code);
 //                //开启倒计时
-//                new CountDownTimer(60 * 1000, 1000) {
-//                    @Override
-//                    public void onTick(final long millisUntilFinished) {
-//                        Observable.create(new Observable.OnSubscribe<Long>() {
-//                            @Override
-//                            public void call(Subscriber<? super Long> subscriber) {
-//                                subscriber.onNext(millisUntilFinished / 1000);
-//                            }
-//                        }).observeOn(AndroidSchedulers.mainThread())
-//                                .subscribeOn(Schedulers.io())
-//                                .subscribe(new Action1<Long>() {
-//                                    @Override
-//                                    public void call(Long aLong) {
-//                                        btn_request.setText(String.format(getString(R.string.str_remindVerify), aLong.intValue()));
-//                                    }
-//                                });
-//                    }
-//
-//                    @Override
-//                    public void onFinish() {
-//                        Observable.timer(0, TimeUnit.SECONDS)
-//                                .subscribeOn(Schedulers.io())
-//                                .observeOn(AndroidSchedulers.mainThread())
-//                                .subscribe(new Action1<Long>() {
-//                                    @Override
-//                                    public void call(Long aLong) {
-//                                        btn_request.setEnabled(true);
-//                                        btn_request.setText(R.string.str_retry);
-//                                    }
-//                                });
-//                    }
-//                }.start();
+                new CountDownTimer(60 * 1000, 1000) {
+                    @Override
+                    public void onTick(final long millisUntilFinished) {
+                        Observable.unsafeCreate(new Observable.OnSubscribe<Long>() {
+                            @Override
+                            public void call(Subscriber<? super Long> subscriber) {
+                                subscriber.onNext(millisUntilFinished / 1000);
+                            }
+                        }).observeOn(AndroidSchedulers.mainThread())
+                                .subscribeOn(Schedulers.io())
+                                .subscribe(new Action1<Long>() {
+                                    @Override
+                                    public void call(Long aLong) {
+                                        btn_request.setText(String.format(getString(R.string.str_remindVerify), aLong.intValue() + ""));
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        Observable.timer(0, TimeUnit.SECONDS)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Action1<Long>() {
+                                    @Override
+                                    public void call(Long aLong) {
+                                        btn_request.setEnabled(true);
+                                        btn_request.setText(R.string.str_retry);
+                                    }
+                                });
+                    }
+                }.start();
                 break;
         }
     }

@@ -10,6 +10,10 @@ import com.pupu.rushui.R;
 import com.pupu.rushui.base.BaseActivity;
 import com.pupu.rushui.base.BasePresenter;
 import com.pupu.rushui.entity.UserInfo;
+import com.pupu.rushui.net.Api;
+import com.pupu.rushui.net.ApiClient;
+import com.pupu.rushui.net.BaseResponseFunc;
+import com.pupu.rushui.net.bean.BaseResponse;
 import com.pupu.rushui.util.CommonUtil;
 import com.pupu.rushui.util.DataPreference;
 import com.pupu.rushui.util.Logger;
@@ -81,10 +85,10 @@ public class MineDetailActivity extends BaseActivity {
             public void onCheckedChange(boolean flag) {
                 if (flag == true) {
                     //woman
-
+                    userInfo.setSex("woman");
                 } else {
                     //man
-
+                    userInfo.setSex("man");
                 }
             }
         });
@@ -98,7 +102,7 @@ public class MineDetailActivity extends BaseActivity {
                         .subscribe(new Action1<Long>() {
                             @Override
                             public void call(Long aLong) {
-                                tv_height.setText(String.format(getString(R.string.str_height_cm), value + ""));
+                                tv_height.setText(String.format(getString(R.string.str_height_cm), ((Float) value).intValue() + ""));
                             }
                         }, new Action1<Throwable>() {
                             @Override
@@ -118,7 +122,7 @@ public class MineDetailActivity extends BaseActivity {
                         .subscribe(new Action1<Long>() {
                             @Override
                             public void call(Long aLong) {
-                                tv_weight.setText(String.format(getString(R.string.str_weight_kg), value + ""));
+                                tv_weight.setText(String.format(getString(R.string.str_weight_kg), ((Float) value).intValue() + ""));
                             }
                         }, new Action1<Throwable>() {
                             @Override
@@ -174,5 +178,22 @@ public class MineDetailActivity extends BaseActivity {
     public void onOkClicked(View view) {
         //请求网络
         btn_ok.startLoading();
+        ApiClient.getInstance().getApi().uploadUserInfo(userInfo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new BaseResponseFunc<String>())
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        //请求成功，关闭页面
+                        finish();
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        throwable.printStackTrace();
+                        CommonUtil.showToast(throwable.getMessage());
+                    }
+                });
     }
 }

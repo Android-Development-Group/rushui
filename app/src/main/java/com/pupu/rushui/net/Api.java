@@ -100,4 +100,13 @@ public interface Api {
      */
     @POST(NetAction.UPLOAD_SLEEP_DATA_LIST)
     Observable<BaseResponse<String>> uploadSleepDataList(@Body UploadSleepDataRequest request);
+
+    /**
+     * 上传用户信息
+     *
+     * @param userInfo 用户信息
+     * @return
+     */
+    @POST(NetAction.UPLOAD_USER_INFO)
+    Observable<BaseResponse<String>> uploadUserInfo(@Body UserInfo userInfo);
 }
