@@ -9,7 +9,12 @@ import com.pupu.rushui.net.bean.BaseResponse;
 
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +23,10 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.Observable;
+import rx.Scheduler;
+import rx.Subscriber;
+import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
@@ -162,5 +171,69 @@ public class ExampleUnitTest {
         response.setResponse_code("200");
         response.setResponse_data(new String("12323332333"));
         System.out.println(gson.toJson(response));
+    }
+
+    @Test
+    public void testDownload() {
+        ApiClient.getInstance().getApi()
+                .downloadWhiteNoise("")
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody responseBody) {
+
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        throwable.printStackTrace();
+                    }
+                });
+    }
+
+
+    public static void writeFile2Disk(ResponseBody response, File file) {
+
+        long currentLength = 0;
+        OutputStream os = null;
+
+        InputStream is = response.byteStream();
+        long totalLength = response.contentLength();
+
+        try {
+
+            os = new FileOutputStream(file);
+
+            int len;
+
+            byte[] buff = new byte[1024];
+
+            while ((len = is.read(buff)) != -1) {
+
+                os.write(buff, 0, len);
+                currentLength += len;
+                System.out.println("vivi" + "当前进度:" + currentLength);
+            }
+            // httpCallBack.onLoading(currentLength,totalLength,true);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (os != null) {
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

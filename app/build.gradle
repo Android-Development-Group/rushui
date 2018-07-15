@@ -24,18 +24,34 @@ android {
         versionName globalConfiguration["androidVersionName"]
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+    }
+    productFlavors {
+        //阿里应用分发平台
+        ali {
+            manifestPlaceholders = [JPUSH_CHANNEL: "ali"]
+        }
+        //应用宝
+        tencent {
+            manifestPlaceholders = [JPUSH_CHANNEL: "tencent"]
+        }
+        //魅族
+        meizu {
+            manifestPlaceholders = [JPUSH_CHANNEL: "meizu"]
+        }
     }
     buildTypes {
         debug {
             signingConfig signingConfigs.myConfig
-            buildConfigField("String", "BASE_URL", "\"192.168.0.1\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
             signingConfig signingConfigs.myConfig
-            buildConfigField("String", "BASE_URL", "\"192.168.0.1\"")
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -54,6 +70,14 @@ dependencies {
     compile files('libs/jcore-android-1.2.0.jar')
     compile files('libs/jpush-android-3.1.2.jar')
     compile files('libs/janalytics-android-1.2.1.jar')
+
+    /**
+     * bugly
+     */
+    //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    compile 'com.tencent.bugly:crashreport:latest.release'
+    //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+    compile 'com.tencent.bugly:nativecrashreport:latest.release'
 
     def common = rootProject.ext.common
     api common.rxbus

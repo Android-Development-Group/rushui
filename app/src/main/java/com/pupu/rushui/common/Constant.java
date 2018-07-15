@@ -10,7 +10,7 @@ import com.pupu.rushui.app.MyApplication;
 
 public class Constant {
     public final static String CACHE_PATH = Environment.getExternalStorageDirectory() + "/" + MyApplication.getInstance().getPackageName() + "/cache/";
-    public final static String BASE_URL = "http://rap2api.taobao.org/";
+    public final static String BASE_URL = "http://39.105.106.227/";
 
     /**
      * 闹钟响起事件

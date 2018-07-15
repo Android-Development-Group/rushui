@@ -113,6 +113,7 @@ public class WhiteNoiseActivity extends BaseActivity {
                     //设置保存本地
                     DataPreference.setWhiteNoiseList(mDatas);
                 } else if (mDatas.get(position).getState() == WhiteNoise.STATE_CHECKED) {
+                    //设置本地助眠声
 
                 } else if (mDatas.get(position).getState() == WhiteNoise.STATE_NO_DOWNLOADED) {
                     //去下载

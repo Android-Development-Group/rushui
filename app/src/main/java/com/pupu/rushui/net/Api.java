@@ -8,11 +8,14 @@ import com.pupu.rushui.net.bean.UploadSleepDataRequest;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.Streaming;
+import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -21,6 +24,16 @@ import rx.Observable;
  */
 
 public interface Api {
+
+    /**
+     * 下载白噪声文件
+     *
+     * @param downloadUrl 文件url
+     * @return
+     */
+    @Streaming
+    @GET
+    Observable<ResponseBody> downloadWhiteNoise(@Url String downloadUrl);
 
 
     /**
