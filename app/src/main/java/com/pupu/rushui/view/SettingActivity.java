@@ -91,10 +91,8 @@ public class SettingActivity extends BaseActivity {
                 if (alarmTime != null) {
                     if (isChecked == true) {
                         alarmTime.setOpen(true);
-                        CommonUtil.showToast(R.string.str_on);
                     } else {
                         alarmTime.setOpen(false);
-                        CommonUtil.showToast(R.string.str_off);
                     }
                     DataPreference.setAlarm(alarmTime);
                 }

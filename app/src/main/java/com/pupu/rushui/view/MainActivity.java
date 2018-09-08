@@ -309,6 +309,9 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         fadeVol.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
+                if (mediaPlayer == null) {
+                    return;
+                }
                 mediaPlayer.setVolume((float) animation.getAnimatedValue(),
                         (float) animation.getAnimatedValue());
             }
@@ -337,6 +340,9 @@ public class MainActivity extends BaseActivity implements MainContract.View {
             fadeVol.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
+                    if (mediaPlayer == null) {
+                        return;
+                    }
                     mediaPlayer.setVolume((float) animation.getAnimatedValue(),
                             (float) animation.getAnimatedValue());
                     if ((float) animation.getAnimatedValue() <= 0) {
